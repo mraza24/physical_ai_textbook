@@ -2,24 +2,28 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Physical AI Textbook',
+  tagline: 'Learn robotics, AI, and simulation',
   favicon: 'img/favicon.ico',
 
   future: {
-    v4: true, // Improve compatibility with Docusaurus v4
+    v4: true,
   },
 
-  url: 'https://your-docusaurus-site.example.com',
-  baseUrl: '/',
+  // Deployment configuration (auto-detects for Vercel/GitHub Pages)
+  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://mraza24.github.io',
+  baseUrl: process.env.VERCEL_URL ? '/' : '/physical_ai_textbook/',
 
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus',   // Usually your repo name.
+  organizationName: 'mraza24',            // Your GitHub username
+  projectName: 'physical_ai_textbook',    // Your repo name
+  deploymentBranch: 'gh-pages',           // Branch to deploy to
 
   onBrokenLinks: 'throw',
+
+  markdown: {
+    format: 'detect',
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -31,22 +35,10 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.ts'), 
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          sidebarPath: require.resolve('./sidebars.ts'),
+          editUrl: 'https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false, // Optional: disable blog for Part 1
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -60,21 +52,20 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'My Site',
+      title: 'Physical AI Textbook',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Physical AI Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'textbookSidebar', // ← fixed sidebar id
+          sidebarId: 'textbookSidebar',
           position: 'left',
           label: 'Tutorial',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/mraza24/physical_ai_textbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -109,21 +100,8 @@ const config: Config = {
             },
           ],
         },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Textbook. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
