@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: rag-chatbot-api
+    env: python
+    region: oregon  # Choose: oregon, frankfurt, singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: REQUEST_TIMEOUT_SECONDS
+        value: 300
+      - key: SIMILARITY_THRESHOLD
+        value: 0.7
+      # Add other env vars via Render Dashboard after deployment
