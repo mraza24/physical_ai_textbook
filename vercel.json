@@ -2,6 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "build",
   "framework": "docusaurus",
-  "installCommand": "npm install",
-  "devCommand": "npm start"
+  "installCommand": "npm install --legacy-peer-deps",
+  "devCommand": "npm start",
+  "regions": ["iad1"]
 }

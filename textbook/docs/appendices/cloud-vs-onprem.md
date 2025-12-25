@@ -1,6 +1,7 @@
+--- sidebar_position: 5 title: Appendix E - Cloud vs On-Premise GPU Deployment ---
 ---
 sidebar_position: 5
-title: Appendix E - Cloud vs On-Premise GPU Deployment
+title: "Appendix E - Cloud vs On-Premise GPU Deployment"
 ---
 
 # Appendix E: Cloud vs On-Premise GPU Deployment
@@ -91,9 +92,9 @@ Choosing between cloud and local GPU infrastructure is a critical decision affec
 **Break-even**: ~200-250 hours per year
 
 **Recommendation**:
-- **<150 hours/year**: Use cloud
+- **`<150 hours/year`**: Use cloud
 - **150-300 hours/year**: Either works, depends on other factors
-- **>300 hours/year**: Buy local GPU
+- **More than 300 hours/year**: Buy local GPU
 
 ---
 
@@ -351,12 +352,12 @@ gradient notebooks create \
 
 | Your Situation | Recommendation |
 |----------------|----------------|
-| Student, <100 hours | Paperspace Free or AWS Spot |
+| Student, `<100 hours` | Paperspace Free or AWS Spot |
 | Researcher, daily use | RTX 4070 Ti local workstation |
 | Startup, moderate use | Hybrid (local dev + cloud training) |
 | Enterprise, production | On-premise GPU servers + cloud backup |
 | Edge deployment | Jetson Orin + local dev GPU |
-| Budget <$1,000 | Cloud only (no upfront cost) |
+| `Budget <$1,000` | Cloud only (no upfront cost) |
 | Budget >$2,500 | Buy local GPU (better long-term) |
 
 ---

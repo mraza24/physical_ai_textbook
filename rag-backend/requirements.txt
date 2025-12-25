@@ -1,0 +1,19 @@
+# RAG Chatbot Backend - Updated Dependencies
+# Compatible with Python 3.12 and 3.13
+
+# CORE WEB FRAMEWORK
+fastapi>=0.113.0
+uvicorn[standard]>=0.23.2
+pydantic>=2.7.0
+
+# EXTERNAL SERVICES
+cohere>=4.4.0
+# Version update to fix Python compatibility error
+qdrant-client>=1.12.0
+
+# ENVIRONMENT & CONFIGURATION
+python-dotenv>=1.0.0
+
+# HTTP & NETWORKING
+requests>=2.32.0
+httpx>=0.25.2

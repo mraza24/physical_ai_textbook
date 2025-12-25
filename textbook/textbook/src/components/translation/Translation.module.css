@@ -1,0 +1,269 @@
+/* Import Urdu font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+/* Translate Button */
+.translateButtonContainer {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.translateButton,
+.originalButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.translateButton {
+  background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+  color: white;
+}
+
+.translateButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.originalButton {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.originalButton:hover:not(:disabled) {
+  background: var(--ifm-color-emphasis-300);
+}
+
+.translateButton:disabled,
+.originalButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+/* Loader */
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(67, 206, 162, 0.2);
+  border-top-color: #43cea2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderMessage {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.loaderSubtext {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Translated Content Container */
+.translatedContainer {
+  margin: 1.5rem 0;
+}
+
+.translatedBanner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(67, 206, 162, 0.1) 0%, rgba(24, 90, 157, 0.1) 100%);
+  border-left: 4px solid #43cea2;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.translatedBanner .icon {
+  font-size: 1.3rem;
+}
+
+.translatedBanner span {
+  flex: 1;
+  font-weight: 500;
+  color: var(--ifm-font-color-base);
+}
+
+.showOriginalButton {
+  padding: 0.5rem 1rem;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.showOriginalButton:hover {
+  background: var(--ifm-color-emphasis-300);
+}
+
+/* Technical Terms Glossary */
+.technicalTermsContainer {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+}
+
+.glossaryToggle {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.glossaryToggle:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.glossary {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.glossaryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.englishTerm {
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.arrow {
+  color: var(--ifm-color-emphasis-600);
+}
+
+.urduTerm {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  direction: rtl;
+}
+
+/* RTL Content Styles */
+.translatedContent.rtl {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', serif;
+  line-height: 2;
+  font-size: 1.05rem;
+}
+
+/* Preserve LTR for code blocks in RTL context */
+.translatedContent.rtl pre,
+.translatedContent.rtl code {
+  direction: ltr;
+  text-align: left;
+  font-family: 'Courier New', monospace;
+  unicode-bidi: embed;
+}
+
+/* Preserve LTR for inline code */
+.translatedContent.rtl code:not(pre code) {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Numbers and Latin text in RTL */
+.translatedContent.rtl .ltr {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Headings in Urdu */
+.translatedContent.rtl h1,
+.translatedContent.rtl h2,
+.translatedContent.rtl h3,
+.translatedContent.rtl h4,
+.translatedContent.rtl h5,
+.translatedContent.rtl h6 {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-weight: 700;
+}
+
+/* Lists in RTL */
+.translatedContent.rtl ul,
+.translatedContent.rtl ol {
+  padding-right: 2rem;
+  padding-left: 0;
+}
+
+/* Tables in RTL */
+.translatedContent.rtl table {
+  direction: rtl;
+}
+
+.translatedContent.rtl th,
+.translatedContent.rtl td {
+  text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .translateButton,
+  .originalButton {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .glossary {
+    grid-template-columns: 1fr;
+  }
+
+  .translatedContent.rtl {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+}

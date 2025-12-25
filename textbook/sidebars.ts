@@ -1,20 +1,9 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
-/**
- * Creating a sidebar enables you to:
- - create an ordered group of docs
- - render a sidebar for each doc of that group
- - provide next/previous navigation
-
- The sidebars can be generated from the filesystem, or explicitly defined here.
-
- Create as many sidebars as you want.
- */
 const sidebars: SidebarsConfig = {
   textbookSidebar: [
-    'intro',
+    'intro', // docs/intro.md
+
     {
       type: 'category',
       label: 'Front Matter',
@@ -25,6 +14,7 @@ const sidebars: SidebarsConfig = {
         'course-mapping',
       ],
     },
+
     {
       type: 'category',
       label: 'Module 1: The Robotic Nervous System (ROS 2)',
@@ -37,6 +27,7 @@ const sidebars: SidebarsConfig = {
         'module1/chapter1-4-packages',
       ],
     },
+
     {
       type: 'category',
       label: 'Module 2: The Digital Twin (Gazebo & Unity)',
@@ -49,6 +40,7 @@ const sidebars: SidebarsConfig = {
         'module2/chapter2-4-sensors-vslam',
       ],
     },
+
     {
       type: 'category',
       label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac)',
@@ -61,6 +53,7 @@ const sidebars: SidebarsConfig = {
         'module3/chapter3-4-isaac-gym-rl',
       ],
     },
+
     {
       type: 'category',
       label: 'Module 4: Vision-Language-Action (VLA)',
@@ -73,13 +66,12 @@ const sidebars: SidebarsConfig = {
         'module4/chapter4-4-vla-system',
       ],
     },
+
     {
       type: 'category',
       label: 'Back Matter',
       collapsed: false,
       items: [
-        'glossary',
-        'references',
         {
           type: 'category',
           label: 'Appendices',
@@ -87,12 +79,12 @@ const sidebars: SidebarsConfig = {
             'appendices/hardware-setup',
             'appendices/software-installation',
             'appendices/launch-files',
-            'appendices/sim2real',
             'appendices/cloud-vs-onprem',
-            'appendices/troubleshooting',
             'appendices/resources',
           ],
         },
+        'glossary',
+        'references',
       ],
     },
   ],

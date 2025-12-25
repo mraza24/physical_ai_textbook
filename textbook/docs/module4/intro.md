@@ -154,7 +154,7 @@ You'll build a **voice-controlled robot** that:
 
 ### Don'ts ❌
 - Don't trust LLM outputs blindly (validate before executing)
-- Don't ignore latency (voice → action should be <5 seconds)
+- Don't ignore latency (voice → action should be &lt;5 seconds)
 - Don't skip error handling (LLM may output invalid plans)
 - Don't forget safety (add e-stops, collision checking)
 

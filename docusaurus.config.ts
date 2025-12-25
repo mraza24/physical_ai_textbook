@@ -13,7 +13,7 @@ const config: Config = {
 
   // Deployment configuration (auto-detects for Vercel/GitHub Pages)
   url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://mraza24.github.io',
-  baseUrl: process.env.VERCEL_URL ? '/' : '/physical_ai_textbook/',
+  baseUrl: '/',  // Always use root path for Vercel deployments
 
   organizationName: 'mraza24',            // Your GitHub username
   projectName: 'physical_ai_textbook',    // Your repo name
