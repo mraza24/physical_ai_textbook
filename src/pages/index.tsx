@@ -1,5 +1,4 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -9,7 +8,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function HomepageHeader() {
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className="hero hero--primary" style={{padding: '4rem 0'}}>
       <div className="container">
         <div
           style={{
@@ -32,7 +31,7 @@ function HomepageHeader() {
               A comprehensive technical textbook for students and practitioners learning to build intelligent physical AI systems,
               from robot operating systems to vision-language-action models for humanoid robotics.
             </p>
-            <div className={styles.buttons}>
+            <div style={{marginTop: '1.5rem'}}>
               <Link className="button button--secondary button--lg" to="/docs/intro">
                 📘 Start Reading the Book
               </Link>
