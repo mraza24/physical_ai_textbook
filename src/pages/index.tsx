@@ -6,7 +6,6 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-import styles from './index.module.css';
 
 function HomepageHeader() {
   return (
