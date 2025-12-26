@@ -10,18 +10,22 @@ interface Message {
 
 const ChatbotContent: React.FC = () => {
   const { siteConfig } = useDocusaurusContext();
-  // Live Backend URL using Context or Fallback
   const API_BASE_URL = (siteConfig.customFields?.apiUrl as string) || 'https://physical-ai-backend-xnwe.onrender.com';
 
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false); // Mount check add kiya
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setIsMounted(true); // Component load hote hi true ho jayega
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, loading, isOpen]);
 
@@ -59,24 +63,30 @@ const ChatbotContent: React.FC = () => {
     }
   };
 
+  if (!isMounted) return null; // Hydration error se bachne ke liye
+
   return (
-    <div style={{ position: 'fixed', bottom: '25px', right: '25px', zIndex: 99999 }}>
+    <div style={{ position: 'fixed', bottom: '25px', right: '25px', zIndex: 2147483647 }}>
+      {/* Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
         style={{
           width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#2e8555',
           color: 'white', border: 'none', cursor: 'pointer', boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-          fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+          fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          position: 'relative'
         }}
       >
         {isOpen ? '✕' : '💬'}
       </button>
 
+      {/* Chat Window */}
       {isOpen && (
         <div style={{
           position: 'fixed', bottom: '100px', right: '25px', width: '380px', height: '520px',
           backgroundColor: 'white', borderRadius: '15px', boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-          display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid #eee', zIndex: 99999
+          display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid #eee',
+          zIndex: 2147483647 // Max Z-Index taake hamesha upar rahe
         }}>
           <div style={{ backgroundColor: '#2e8555', color: 'white', padding: '15px 20px' }}>
             <h3 style={{ margin: 0, fontSize: '18px' }}>Textbook AI Assistant</h3>
@@ -110,7 +120,7 @@ const ChatbotContent: React.FC = () => {
                 </div>
               </div>
             ))}
-            {loading && <div style={{ fontSize: '12px', color: '#2e8555' }}>AI is thinking...</div>}
+            {loading && <div style={{ fontSize: '12px', color: '#2e8555', padding: '10px' }}>AI is thinking...</div>}
             <div ref={chatEndRef} />
           </div>
 
