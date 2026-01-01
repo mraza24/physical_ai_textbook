@@ -1,0 +1,145 @@
+import { betterAuth } from 'better-auth';
+import { toNodeHandler } from 'better-auth/node';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { db } from '../db/connection';
+import * as dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
+
+/**
+ * Better-Auth Configuration
+ *
+ * Provides JWT-based authentication with Drizzle ORM adapter for Neon Postgres.
+ *
+ * Features:
+ * - Email/password authentication with bcrypt (cost factor 12)
+ * - JWT sessions with RS256 signing
+ * - Configurable session expiration (24h standard, 7d "remember me")
+ * - Custom user profile fields accessible in session
+ *
+ * @see https://better-auth.com/docs
+ */
+
+// Validate required environment variables
+if (!process.env.JWT_SECRET) {
+  throw new Error(
+    'JWT_SECRET environment variable is required. ' +
+    'Generate one with: openssl rand -base64 32'
+  );
+}
+
+export const auth = betterAuth({
+  // Database adapter configuration
+  database: drizzleAdapter(db, {
+    provider: 'pg', // PostgreSQL (Neon)
+  }),
+
+  // JWT secret for signing tokens
+  secret: process.env.JWT_SECRET!,
+
+  // Session configuration
+  session: {
+    expiresIn: 60 * 60 * 24, // 24 hours (standard session) - FR-006
+    updateAge: 60 * 60, // Refresh token every hour
+  },
+
+  // Email and password authentication
+  emailAndPassword: {
+    enabled: true,
+    bcryptCost: 12, // FR-005: Industry standard for 2026 (OWASP recommendation)
+  },
+
+  // User configuration - include custom profile fields in session
+  user: {
+    // Additional fields to include in user object
+    additionalFields: {
+      // Custom profile fields for personalization
+      software_background: {
+        type: 'string',
+        required: true,
+        // Will be accessible via session.user.software_background
+      },
+      hardware_experience: {
+        type: 'string',
+        required: true,
+        // Will be accessible via session.user.hardware_experience
+      },
+      language_preference: {
+        type: 'string',
+        required: false,
+        defaultValue: 'English',
+        // Will be accessible via session.user.language_preference
+      },
+      // Existing fields (preserve compatibility)
+      python_level: {
+        type: 'string',
+        required: false,
+      },
+      ros2_level: {
+        type: 'string',
+        required: false,
+      },
+      gpu_available: {
+        type: 'string',
+        required: false,
+      },
+      hardware_tier: {
+        type: 'string',
+        required: false,
+      },
+      primary_goal: {
+        type: 'string',
+        required: false,
+      },
+    },
+  },
+
+  // Advanced options
+  advanced: {
+    // Use RS256 algorithm for production (spec Security requirement)
+    useSecureCookies: process.env.NODE_ENV === 'production',
+    cookiePrefix: 'auth',
+    crossSubDomainCookies: {
+      enabled: false, // Only if using subdomains
+    },
+  },
+});
+
+/**
+ * Export auth handlers for Express integration
+ *
+ * Better-Auth uses Web API Request/Response, so we need to convert
+ * to Node.js/Express compatible handler using toNodeHandler.
+ *
+ * Usage in Express:
+ * ```typescript
+ * import { authHandler } from './auth/config';
+ * app.all('/api/auth/*', authHandler);
+ * ```
+ */
+export const authHandler = toNodeHandler(auth);
+
+/**
+ * Type-safe session interface
+ * Extends Better-Auth session with custom user profile fields
+ */
+export interface AuthSession {
+  session: {
+    token: string;
+    expiresAt: Date;
+    userId: string;
+  };
+  user: {
+    id: string;
+    email: string;
+    software_background: 'Beginner' | 'Intermediate' | 'Expert';
+    hardware_experience: 'None' | 'Basic' | 'Advanced';
+    language_preference: 'English' | 'Urdu';
+    python_level?: string;
+    ros2_level?: string;
+    gpu_available?: string;
+    hardware_tier?: string;
+    primary_goal?: string;
+  };
+}
