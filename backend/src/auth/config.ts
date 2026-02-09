@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { toNodeHandler } from 'better-auth/node';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from '../db/connection';
+import * as schema from '../db/schema';
 import * as dotenv from 'dotenv';
 
 // Load environment variables
@@ -33,6 +34,7 @@ export const auth = betterAuth({
   // Database adapter configuration
   database: drizzleAdapter(db, {
     provider: 'pg', // PostgreSQL (Neon)
+    schema, // Pass schema object so Better-Auth can find all tables
   }),
 
   // JWT secret for signing tokens
@@ -50,49 +52,11 @@ export const auth = betterAuth({
     bcryptCost: 12, // FR-005: Industry standard for 2026 (OWASP recommendation)
   },
 
-  // User configuration - include custom profile fields in session
+  // User configuration
+  // NOTE: Profile fields are stored in separate user_profiles table, not on user object
+  // This prevents Better-Auth schema conflicts
   user: {
-    // Additional fields to include in user object
-    additionalFields: {
-      // Custom profile fields for personalization
-      software_background: {
-        type: 'string',
-        required: true,
-        // Will be accessible via session.user.software_background
-      },
-      hardware_experience: {
-        type: 'string',
-        required: true,
-        // Will be accessible via session.user.hardware_experience
-      },
-      language_preference: {
-        type: 'string',
-        required: false,
-        defaultValue: 'English',
-        // Will be accessible via session.user.language_preference
-      },
-      // Existing fields (preserve compatibility)
-      python_level: {
-        type: 'string',
-        required: false,
-      },
-      ros2_level: {
-        type: 'string',
-        required: false,
-      },
-      gpu_available: {
-        type: 'string',
-        required: false,
-      },
-      hardware_tier: {
-        type: 'string',
-        required: false,
-      },
-      primary_goal: {
-        type: 'string',
-        required: false,
-      },
-    },
+    // No additional fields - profile data comes from user_profiles table join
   },
 
   // Advanced options

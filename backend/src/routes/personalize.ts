@@ -10,7 +10,7 @@
  */
 
 import { Router, Response } from 'express';
-import { AuthRequest } from '../auth/middleware';
+import { AuthRequest, requireAuth } from '../auth/middleware';
 import { db } from '../db/connection';
 import { userProfile } from '../db/schema';
 import { eq } from 'drizzle-orm';
@@ -29,6 +29,9 @@ import {
 } from '../services/markdown-processor';
 
 const router = Router();
+
+// Apply auth middleware to all routes
+router.use(requireAuth);
 
 /**
  * Personalize Chapter Content

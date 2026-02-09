@@ -11,7 +11,7 @@
  */
 
 import { Router, Response } from 'express';
-import { AuthRequest } from '../auth/middleware';
+import { AuthRequest, requireAuth } from '../auth/middleware';
 import { db } from '../db/connection';
 import { userProfile } from '../db/schema';
 import { eq } from 'drizzle-orm';
@@ -27,6 +27,9 @@ import {
 } from '../services/markdown-processor';
 
 const router = Router();
+
+// Apply auth middleware to all routes
+router.use(requireAuth);
 
 /**
  * Default technical terms to preserve in English during translation
@@ -173,8 +176,8 @@ router.post('/urdu', async (req: AuthRequest, res: Response): Promise<void> => {
 
     // Use safeTransform to protect code blocks during LLM processing
     const { transformed, warnings } = await safeTransform(content, async (textOnly) => {
-      // Invoke LLM client with text-only markdown
-      return await translateToUrdu(textOnly, allTechnicalTerms);
+      // Invoke LLM client with text-only markdown and chapter path for static lookup
+      return await translateToUrdu(textOnly, allTechnicalTerms, chapterPath);
     });
 
     // Validate transformed markdown

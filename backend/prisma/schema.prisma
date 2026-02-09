@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+// User table mapped to lowercase for Drizzle compatibility
+model User {
+  id        String       @id @default(uuid())
+  email     String       @unique
+  password  String
+  createdAt DateTime     @default(now())
+  profile   UserProfile?
+
+  @@map("user") 
+}
+
+// UserProfile table mapped to lowercase "user_profiles"
+model UserProfile {
+  id                  String   @id @default(uuid())
+  user_id             String   @unique
+  user                User     @relation(fields: [user_id], references: [id])
+  software_background String
+  hardware_experience String
+  language_preference String   @default("English")
+  python_level        String?
+  ros2_level          String?
+  gpu_available       String?
+  hardware_tier       String?
+  primary_goal        String?
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  @@map("user_profiles")
+}
+
+// Chat table (mapped to uppercase if you prefer, or @@map("chat") for lowercase)
+model Chat {
+  id        String   @id @default(uuid())
+  message   String
+  response  String
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@map("chat")
+}
+
+// Optional: Better-Auth session table if your backend uses it
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+
+  @@map("session")
+}

@@ -5,23 +5,67 @@ import { pgTable, uuid, varchar, timestamp, boolean, text, jsonb, index } from '
 // ============================================================================
 export const user = pgTable('user', {
   id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(), // Required by Better-Auth
   email: varchar('email', { length: 255 }).notNull().unique(),
-  password_hash: varchar('password_hash', { length: 255 }).notNull(),
-  created_at: timestamp('created_at').defaultNow().notNull(),
+  emailVerified: boolean('emailVerified').default(false).notNull(), // Required by Better-Auth
+  image: text('image'), // Optional profile image (Better-Auth)
+  password: text('password'), // Better-Auth manages password (nullable for OAuth users)
+  createdAt: timestamp('createdAt').defaultNow().notNull(), // Better-Auth uses camelCase
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(), // Better-Auth uses camelCase
+  created_at: timestamp('created_at').defaultNow().notNull(), // Keep for backward compatibility
   last_login: timestamp('last_login'),
 });
+
+// ============================================================================
+// Account table (Better-Auth managed - for OAuth providers)
+// ============================================================================
+export const account = pgTable('account', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  accountId: text('accountId').notNull(), // Provider account ID
+  providerId: text('providerId').notNull(), // Provider name (e.g., 'google', 'github')
+  userId: uuid('userId').notNull().references(() => user.id, { onDelete: 'cascade' }),
+  accessToken: text('accessToken'),
+  refreshToken: text('refreshToken'),
+  idToken: text('idToken'),
+  expiresAt: timestamp('expiresAt'),
+  password: text('password'), // For email/password provider
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(),
+}, (table) => ({
+  userIdIdx: index('idx_account_user_id').on(table.userId),
+  providerIdx: index('idx_account_provider').on(table.providerId, table.accountId),
+}));
+
+// ============================================================================
+// Verification table (Better-Auth managed - for email verification)
+// ============================================================================
+export const verification = pgTable('verification', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  identifier: text('identifier').notNull(), // Email or phone number
+  value: text('value').notNull(), // Verification code/token
+  expiresAt: timestamp('expiresAt').notNull(),
+  createdAt: timestamp('createdAt').defaultNow().notNull(),
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(),
+}, (table) => ({
+  identifierIdx: index('idx_verification_identifier').on(table.identifier),
+}));
 
 // ============================================================================
 // Session table (Better-Auth managed)
 // ============================================================================
 export const session = pgTable('session', {
-  session_token: varchar('session_token', { length: 512 }).primaryKey(),
-  user_id: uuid('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
-  expires_at: timestamp('expires_at').notNull(),
-  remember_me: boolean('remember_me').default(false).notNull(),
+  id: uuid('id').primaryKey().defaultRandom(), // Better-Auth uses 'id' as primary key
+  userId: uuid('userId').notNull().references(() => user.id, { onDelete: 'cascade' }), // camelCase
+  expiresAt: timestamp('expiresAt').notNull(), // camelCase - required by Better-Auth
+  token: text('token').notNull(), // Session token
+  ipAddress: text('ipAddress'), // Optional: track IP
+  userAgent: text('userAgent'), // Optional: track user agent
+  createdAt: timestamp('createdAt').defaultNow().notNull(), // camelCase
+  updatedAt: timestamp('updatedAt').defaultNow().notNull(), // camelCase
 }, (table) => ({
-  userIdIdx: index('idx_session_user_id').on(table.user_id),
-  expiresAtIdx: index('idx_session_expires_at').on(table.expires_at),
+  userIdIdx: index('idx_session_user_id').on(table.userId),
+  expiresAtIdx: index('idx_session_expires_at').on(table.expiresAt),
+  tokenIdx: index('idx_session_token').on(table.token),
 }));
 
 // ============================================================================

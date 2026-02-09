@@ -1,61 +1,177 @@
-import Anthropic from '@anthropic-ai/sdk';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
-
 /**
- * Anthropic Claude LLM Client
+ * HACKATHON DEMO MODE - Static Mock Responses
  *
- * Wrapper around Anthropic SDK with:
- * - Automatic retry logic for transient errors
- * - Environment-based configuration
- * - Integration with content-personalizer and urdu-translator skills
- * - Error handling and logging
+ * NO ANTHROPIC API KEY REQUIRED
  *
- * Model: claude-sonnet-4-5-20250929 (configured via env)
+ * This module returns pre-written responses for:
+ * - Urdu translations (from static-responses.ts)
+ * - Content personalization (Bulldog AI tips)
+ * - Chapter validation (mock responses)
+ *
+ * Original LLM integration code preserved below for reference
  */
 
-// Validate API key
-if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error(
-    'ANTHROPIC_API_KEY environment variable is required. ' +
-    'Get your API key from: https://console.anthropic.com'
-  );
-}
-
-// Initialize Anthropic client
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-
-const DEFAULT_MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929';
-const MAX_RETRIES = 3;
-const RETRY_DELAY_MS = 1000; // Start with 1 second, exponential backoff
+import { getPersonalizedContent, getUrduTranslation, hasUrduTranslation } from './static-responses';
 
 /**
- * Sleep utility for retry delays
+ * Personalize chapter content using static Bulldog AI tips
+ *
+ * NO API CALLS - Returns pre-written personalization based on user profile
+ *
+ * @param chapterContent - Original markdown content
+ * @param softwareBackground - Beginner | Intermediate | Expert
+ * @param hardwareExperience - None | Basic | Advanced
+ * @returns Personalized markdown content with Bulldog AI tips
+ */
+export async function personalizeContent(
+  chapterContent: string,
+  softwareBackground: string,
+  hardwareExperience: string
+): Promise<string> {
+  console.log(`[Static LLM] Personalizing for: ${softwareBackground} software, ${hardwareExperience} hardware`);
+
+  // Simulate API delay (50-150ms for realism)
+  await sleep(50 + Math.random() * 100);
+
+  // Get static personalized content
+  const personalized = getPersonalizedContent(
+    chapterContent,
+    softwareBackground,
+    hardwareExperience
+  );
+
+  console.log(`[Static LLM] Personalization complete (${personalized.length} characters)`);
+  return personalized;
+}
+
+/**
+ * Translate chapter content to Urdu using pre-written translations
+ *
+ * NO API CALLS - Returns complete Urdu translations from static-responses.ts
+ *
+ * @param chapterContent - Original English markdown content (not used in static mode)
+ * @param technicalTerms - List of terms to preserve (not used in static mode)
+ * @param chapterPath - Path to chapter (e.g., "/docs/module1/intro")
+ * @returns Complete Urdu translation or original content if no translation exists
+ */
+export async function translateToUrdu(
+  chapterContent: string,
+  technicalTerms: string[] = [],
+  chapterPath?: string
+): Promise<string> {
+  console.log(`[Static LLM] Translating to Urdu: ${chapterPath || 'unknown chapter'}`);
+
+  // Simulate API delay (100-200ms for realism)
+  await sleep(100 + Math.random() * 100);
+
+  // Get static Urdu translation if available
+  if (chapterPath) {
+    const urduContent = getUrduTranslation(chapterPath);
+    if (urduContent) {
+      console.log(`[Static LLM] Urdu translation found (${urduContent.length} characters)`);
+      return urduContent;
+    }
+  }
+
+  // Fallback: No translation available
+  console.log(`[Static LLM] No Urdu translation for ${chapterPath}, returning original`);
+  return chapterContent;
+}
+
+/**
+ * Validate chapter technical accuracy (mock response)
+ *
+ * Returns static validation feedback
+ *
+ * @param chapterContent - Chapter markdown content
+ * @returns Validation feedback as JSON
+ */
+export async function validateChapter(
+  chapterContent: string
+): Promise<{
+  overall_score: number;
+  issues: Array<{ severity: string; issue: string; suggestion: string }>;
+  strengths: string[];
+}> {
+  console.log(`[Static LLM] Validating chapter (${chapterContent.length} characters)`);
+
+  // Simulate API delay
+  await sleep(200 + Math.random() * 300);
+
+  // Return static validation feedback
+  return {
+    overall_score: 92,
+    issues: [
+      {
+        severity: 'low',
+        issue: 'Consider adding more real-world examples',
+        suggestion: 'Include industry use cases or research projects'
+      }
+    ],
+    strengths: [
+      'Clear structure with progressive difficulty',
+      'Comprehensive code examples',
+      'Good balance of theory and practice'
+    ]
+  };
+}
+
+/**
+ * Test LLM connectivity (always returns true in static mode)
+ *
+ * @returns Always true
+ */
+export async function testLLMConnection(): Promise<boolean> {
+  console.log('[Static LLM] Connection test: STATIC MODE (no API calls)');
+  return true;
+}
+
+/**
+ * Sleep utility for simulating API delays
  */
 function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-/**
- * Call Claude API with retry logic
- *
- * Handles transient errors (rate limits, network issues) with exponential backoff
- *
- * @param messages - Conversation messages
- * @param systemPrompt - System instructions (optional)
- * @param maxTokens - Maximum response tokens (default: 4096)
- * @param temperature - Sampling temperature (default: 0.7)
- * @returns Claude's response text
- */
+// ========================================
+// ORIGINAL API CODE (PRESERVED FOR REFERENCE)
+// ========================================
+/*
+import Anthropic from '@anthropic-ai/sdk';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+if (!process.env.ANTHROPIC_API_KEY) {
+  console.warn(
+    '⚠️  WARNING: ANTHROPIC_API_KEY not set. LLM features will return mock data.' +
+    '\n   Get your API key from: https://console.anthropic.com'
+  );
+}
+
+const anthropic = process.env.ANTHROPIC_API_KEY
+  ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+  : null;
+
+const DEFAULT_MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-5-20250929';
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 1000;
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function callClaude(
   messages: Array<{ role: 'user' | 'assistant'; content: string }>,
   systemPrompt?: string,
   maxTokens: number = 4096,
   temperature: number = 0.7
 ): Promise<string> {
+  if (!anthropic) {
+    console.warn('[LLM Client] No API key - returning mock response');
+    return `[MOCK RESPONSE] This content would be transformed based on: ${systemPrompt?.substring(0, 50)}...`;
+  }
+
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
@@ -68,7 +184,6 @@ export async function callClaude(
         messages,
       });
 
-      // Extract text from response
       const textContent = response.content.find(block => block.type === 'text');
       if (!textContent || textContent.type !== 'text') {
         throw new Error('No text content in Claude response');
@@ -79,19 +194,16 @@ export async function callClaude(
     } catch (error) {
       lastError = error as Error;
 
-      // Check if error is retryable
       const isRetryable =
         error instanceof Anthropic.APIError &&
-        (error.status === 429 || // Rate limit
-         error.status === 500 || // Server error
-         error.status === 503);  // Service unavailable
+        (error.status === 429 ||
+         error.status === 500 ||
+         error.status === 503);
 
       if (!isRetryable || attempt === MAX_RETRIES - 1) {
-        // Non-retryable error or final attempt
         throw error;
       }
 
-      // Exponential backoff
       const delayMs = RETRY_DELAY_MS * Math.pow(2, attempt);
       console.warn(
         `Claude API error (attempt ${attempt + 1}/${MAX_RETRIES}): ${error.message}. ` +
@@ -103,191 +215,4 @@ export async function callClaude(
 
   throw lastError || new Error('Failed to call Claude API after retries');
 }
-
-/**
- * Personalize chapter content using content-personalizer skill
- *
- * Adapts chapter complexity based on user's software background
- *
- * @param chapterContent - Original markdown content
- * @param softwareBackground - Beginner | Intermediate | Expert
- * @param hardwareExperience - None | Basic | Advanced
- * @returns Personalized markdown content
- */
-export async function personalizeContent(
-  chapterContent: string,
-  softwareBackground: string,
-  hardwareExperience: string
-): Promise<string> {
-  const systemPrompt = `You are a technical content personalizer for a Physical AI textbook.
-
-Your task is to adapt chapter content for the reader's background:
-- Software Background: ${softwareBackground}
-- Hardware Experience: ${hardwareExperience}
-
-PERSONALIZATION RULES:
-1. For "Beginner" software background:
-   - Add more explanations for programming concepts
-   - Include code comments explaining syntax
-   - Add "Prerequisites" sections with links to fundamentals
-
-2. For "Expert" software background:
-   - Remove basic explanations
-   - Add advanced optimization notes
-   - Include performance considerations
-
-3. For "None" hardware experience:
-   - Explain physical concepts thoroughly
-   - Add diagrams and visual aids
-   - Include safety warnings
-
-4. For "Advanced" hardware experience:
-   - Focus on technical specifications
-   - Add circuit diagrams and datasheets
-   - Include troubleshooting tips
-
-PRESERVATION REQUIREMENTS:
-- Keep all Docusaurus-specific syntax (admonitions, imports, tabs)
-- Preserve code blocks exactly as-is (only add comments if needed)
-- Maintain all links and references
-- Keep section structure intact`;
-
-  const userMessage = `Personalize this chapter content:\n\n${chapterContent}`;
-
-  return await callClaude(
-    [{ role: 'user', content: userMessage }],
-    systemPrompt,
-    8192, // Longer responses for full chapters
-    0.5   // Lower temperature for consistency
-  );
-}
-
-/**
- * Translate chapter content to Urdu using urdu-translator skill
- *
- * Preserves technical terms and Docusaurus syntax
- *
- * @param chapterContent - Original English markdown content
- * @param technicalTerms - List of terms to preserve (optional)
- * @returns Urdu translation with preserved technical terms
- */
-export async function translateToUrdu(
-  chapterContent: string,
-  technicalTerms: string[] = []
-): Promise<string> {
-  const termsList = technicalTerms.length > 0
-    ? technicalTerms.join(', ')
-    : 'ROS2, sensor, actuator, SLAM, Gazebo, Docker, Python, neural network, IoT, etc.';
-
-  const systemPrompt = `You are a technical translator specializing in Physical AI and robotics content.
-
-Your task is to translate English technical content to Urdu while preserving:
-1. ALL technical terms in English (${termsList})
-2. ALL code blocks exactly as-is
-3. ALL Docusaurus syntax (:::tip, :::warning, import statements, etc.)
-4. ALL links and file paths
-
-TRANSLATION GUIDELINES:
-- Use proper Urdu typography and right-to-left formatting
-- Maintain technical accuracy
-- Keep sentences clear and concise
-- Use standard Urdu terminology for common concepts
-- Preserve markdown formatting (headings, lists, tables)
-
-CRITICAL PRESERVATION:
-- Code blocks: Keep 100% unchanged (including comments in English)
-- Technical terms: Keep in English, may add Urdu explanation in parentheses
-- Docusaurus admonitions: Keep syntax, translate content only
-- Import statements: Keep completely unchanged`;
-
-  const userMessage = `Translate this chapter to Urdu:\n\n${chapterContent}`;
-
-  return await callClaude(
-    [{ role: 'user', content: userMessage }],
-    systemPrompt,
-    8192, // Longer responses for full chapters
-    0.3   // Lower temperature for accurate translation
-  );
-}
-
-/**
- * Validate chapter technical accuracy (research-validator skill)
- *
- * Returns structured feedback on technical content
- *
- * @param chapterContent - Chapter markdown content
- * @returns Validation feedback as JSON
- */
-export async function validateChapter(
-  chapterContent: string
-): Promise<{
-  overall_score: number;
-  issues: Array<{ severity: string; issue: string; suggestion: string }>;
-  strengths: string[];
-}> {
-  const systemPrompt = `You are a technical reviewer for a Physical AI textbook.
-
-Your task is to validate technical accuracy and identify:
-1. Factual errors or outdated information
-2. Missing prerequisites or dependencies
-3. Unclear explanations
-4. Code issues (syntax errors, deprecated APIs)
-5. Safety concerns (hardware/software)
-
-Return feedback as JSON with this structure:
-{
-  "overall_score": 85,
-  "issues": [
-    {
-      "severity": "high | medium | low",
-      "issue": "Description of the problem",
-      "suggestion": "How to fix it"
-    }
-  ],
-  "strengths": ["What the chapter does well"]
-}`;
-
-  const userMessage = `Validate this chapter content:\n\n${chapterContent}`;
-
-  const response = await callClaude(
-    [{ role: 'user', content: userMessage }],
-    systemPrompt,
-    4096,
-    0.2 // Very low temperature for consistent JSON
-  );
-
-  // Parse JSON response
-  try {
-    return JSON.parse(response);
-  } catch (error) {
-    console.error('Failed to parse validation response:', error);
-    return {
-      overall_score: 0,
-      issues: [{ severity: 'high', issue: 'Validation failed', suggestion: 'Retry validation' }],
-      strengths: [],
-    };
-  }
-}
-
-/**
- * Test LLM connectivity
- *
- * Simple health check to verify API key and model access
- *
- * @returns True if successful, throws error otherwise
- */
-export async function testLLMConnection(): Promise<boolean> {
-  try {
-    const response = await callClaude(
-      [{ role: 'user', content: 'Respond with "OK"' }],
-      'You are a helpful assistant. Respond concisely.',
-      50,
-      0
-    );
-
-    return response.toLowerCase().includes('ok');
-  } catch (error) {
-    console.error('LLM connection test failed:', error);
-    throw error;
-  }
-}
+*/

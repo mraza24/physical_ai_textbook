@@ -141,20 +141,13 @@ router.post('/signup', async (req: Request, res: Response): Promise<void> => {
 
     // Step 1: Create user with Better-Auth
     // Better-Auth handles password hashing (bcrypt cost 12 from config.ts)
+    // NOTE: We only pass email & password to Better-Auth, NOT the profile fields
+    // Profile fields are stored separately in user_profiles table to avoid schema conflicts
     const signupResult = await auth.api.signUpEmail({
       body: {
         name: email.split('@')[0], // Use email prefix as name (required by Better-Auth)
         email,
         password,
-        // Pass profile fields to Better-Auth (configured in config.ts additionalFields)
-        software_background,
-        hardware_experience,
-        language_preference,
-        python_level,
-        ros2_level,
-        gpu_available,
-        hardware_tier,
-        primary_goal,
       },
     });
 

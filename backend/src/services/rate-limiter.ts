@@ -34,7 +34,8 @@ export function createUserRateLimiter(
     windowMs: windowMinutes * 60 * 1000,
     max: maxRequests,
     keyGenerator: getUserIdentifier,
-    validate: { ipKeyGenerator: false },
+    // ✅ Fixed: Changed ipKeyGenerator to default
+    validate: { default: false },
     message: {
       error: 'Too Many Requests',
       message: `Rate limit exceeded. Maximum ${maxRequests} requests per ${windowMinutes} minute(s) allowed.`,
@@ -65,7 +66,8 @@ export function createTransformationRateLimiter(
     windowMs: windowMinutes * 60 * 1000,
     max: maxRequests,
     keyGenerator: getUserIdentifier,
-    validate: { ipKeyGenerator: false },
+    // ✅ Fixed: Changed ipKeyGenerator to default
+    validate: { default: false }, 
     message: {
       error: 'Transformation Rate Limit Exceeded',
       message: `AI transformation limit exceeded. Maximum ${maxRequests} transformations per ${windowMinutes} minute(s) allowed.`,
@@ -97,7 +99,8 @@ export function createAuthRateLimiter(
   return rateLimit({
     windowMs: windowMinutes * 60 * 1000,
     max: maxRequests,
-    validate: { ipKeyGenerator: false },
+    // ✅ Fixed: Changed ipKeyGenerator to default
+    validate: { default: false },
     keyGenerator: (req: Request) => {
       const forwarded = req.headers['x-forwarded-for'];
       const ip = forwarded

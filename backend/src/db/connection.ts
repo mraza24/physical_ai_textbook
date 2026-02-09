@@ -46,19 +46,68 @@ export const sql = neon(process.env.DATABASE_URL);
 export const db = drizzle(sql, { schema });
 
 /**
- * Health check function
+ * Health check function with timeout and retry logic
  * Verifies database connectivity and returns server time
  *
+ * @param timeoutMs - Maximum time to wait for database response (default: 5000ms)
+ * @param retries - Number of retry attempts (default: 2)
  * @returns Promise<Date> Current database server timestamp
- * @throws Error if database connection fails
+ * @throws Error if database connection fails after all retries
  */
-export async function healthCheck(): Promise<Date> {
-  try {
-    const result = await sql`SELECT NOW() as server_time`;
-    return new Date(result[0].server_time);
-  } catch (error) {
+export async function healthCheck(timeoutMs: number = 5000, retries: number = 2): Promise<Date> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      // Create timeout promise
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Database health check timeout')), timeoutMs);
+      });
+
+      // Race between database query and timeout
+      const queryPromise = sql`SELECT NOW() as server_time`;
+      const result = await Promise.race([queryPromise, timeoutPromise]);
+
+      if (Array.isArray(result) && result.length > 0 && result[0].server_time) {
+        return new Date(result[0].server_time);
+      }
+
+      throw new Error('Invalid database response format');
+
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      if (attempt < retries) {
+        console.warn(`⚠️  Database health check attempt ${attempt + 1} failed, retrying...`);
+        // Exponential backoff: wait 1s, then 2s
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+      }
+    }
+  }
+
+  // All retries exhausted
+  const errorMessage = lastError?.message || 'Unknown error';
+
+  // Provide helpful error messages based on error type
+  if (errorMessage.includes('fetch failed') || errorMessage.includes('ENOTFOUND')) {
     throw new Error(
-      `Database health check failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      `Database health check failed: Cannot connect to Neon database.\n` +
+      `  Possible causes:\n` +
+      `  1. DATABASE_URL is incorrect or malformed\n` +
+      `  2. Neon database is paused (wake it up at https://console.neon.tech)\n` +
+      `  3. Network connectivity issues\n` +
+      `  4. Database does not exist\n` +
+      `  Original error: ${errorMessage}`
+    );
+  } else if (errorMessage.includes('timeout')) {
+    throw new Error(
+      `Database health check failed: Connection timeout after ${timeoutMs}ms.\n` +
+      `  The database might be slow to respond or unavailable.\n` +
+      `  Original error: ${errorMessage}`
+    );
+  } else {
+    throw new Error(
+      `Database health check failed: ${errorMessage}`
     );
   }
 }
