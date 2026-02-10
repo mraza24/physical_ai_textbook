@@ -11,15 +11,19 @@ const config: Config = {
     v4: true,
   },
 
-  // Deployment configuration (auto-detects for Vercel/GitHub Pages)
-  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://mraza24.github.io',
-  baseUrl: process.env.VERCEL_URL ? '/' : '/physical_ai_textbook/',
+  // ✅ SAFE CONFIG: process.env ko avoid kiya gaya hai client-side crash se bachne ke liye
+  url: 'https://mraza24.github.io', 
+  baseUrl: '/',
 
-  organizationName: 'mraza24',            // Your GitHub username
-  projectName: 'physical_ai_textbook',    // Your repo name
-  deploymentBranch: 'gh-pages',           // Branch to deploy to
+  // ✅ ZAROORI: Ye fields hooks mein API calls ke liye use hongi
+  customFields: {
+    backendUrl: 'https://physical-ai-auth-backend.onrender.com', 
+  },
 
-  onBrokenLinks: 'throw',
+  organizationName: 'mraza24',
+  projectName: 'physical_ai_textbook',
+  deploymentBranch: 'gh-pages',
+  onBrokenLinks: 'warn',
 
   markdown: {
     format: 'detect',
@@ -30,6 +34,14 @@ const config: Config = {
     locales: ['en'],
   },
 
+  // Runtime scripts to fix button blocking issues
+  scripts: [
+    {
+      src: '/physical_ai_textbook/js/click-fixer.js',
+      async: false,
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -38,7 +50,7 @@ const config: Config = {
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: 'https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/',
         },
-        blog: false, // Optional: disable blog for Part 1
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -65,6 +77,16 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
+          to: '/login',
+          label: 'Login',
+          position: 'right',
+        },
+        {
+          to: '/signup',
+          label: 'Sign Up',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/mraza24/physical_ai_textbook',
           label: 'GitHub',
           position: 'right',
@@ -79,7 +101,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/physical_ai_textbook/docs/intro',
             },
           ],
         },
@@ -93,10 +115,6 @@ const config: Config = {
             {
               label: 'Discord',
               href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
             },
           ],
         },

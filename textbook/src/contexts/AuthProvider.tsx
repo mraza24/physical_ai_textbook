@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export interface User {
   id: string;
@@ -10,12 +9,16 @@ export interface User {
 }
 
 export interface UserProfile {
-  python_level: string;
-  ros2_level: string;
-  gpu_available: string;
-  hardware_tier: string;
-  primary_goal: string;
+  // NEW REQUIRED FIELDS (FR-001, FR-002)
+  software_background: 'Beginner' | 'Intermediate' | 'Expert';
+  hardware_experience: 'None' | 'Basic' | 'Advanced';
   language_preference: string;
+  // EXISTING OPTIONAL FIELDS
+  python_level?: string;
+  ros2_level?: string;
+  gpu_available?: string;
+  hardware_tier?: string;
+  primary_goal?: string;
 }
 
 export interface AuthContextType {
@@ -37,52 +40,90 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  // ✅ SAFE: Get API URL from Docusaurus context inside component (no process.env in browser!)
+  const { siteConfig } = useDocusaurusContext();
+  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Load user from localStorage on mount
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    const storedUser = localStorage.getItem('user');
-    const storedProfile = localStorage.getItem('profile');
+    const loadAuthState = () => {
+      const token = localStorage.getItem('auth_token');
+      const storedUser = localStorage.getItem('user');
+      const storedProfile = localStorage.getItem('profile');
 
-    if (token && storedUser && storedProfile) {
-      try {
-        setUser(JSON.parse(storedUser));
-        setProfile(JSON.parse(storedProfile));
-      } catch (error) {
-        console.error('Failed to parse stored auth data:', error);
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('profile');
+      console.log('[AuthProvider] Loading auth state:', {
+        hasToken: !!token,
+        hasUser: !!storedUser,
+        hasProfile: !!storedProfile
+      });
+
+      if (token && storedUser && storedProfile) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          const parsedProfile = JSON.parse(storedProfile);
+
+          console.log('[AuthProvider] Restored session:', {
+            userId: parsedUser.id,
+            email: parsedUser.email,
+            profile: parsedProfile
+          });
+
+          setUser(parsedUser);
+          setProfile(parsedProfile);
+        } catch (error) {
+          console.error('[AuthProvider] Failed to parse stored auth data:', error);
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('profile');
+        }
+      } else {
+        console.log('[AuthProvider] No valid session found');
       }
-    }
 
-    setIsLoading(false);
+      // CRITICAL: Set loading false AFTER state updates
+      setIsLoading(false);
+    };
+
+    loadAuthState();
   }, []);
 
   const signup = async (email: string, password: string, profileData: UserProfile) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, profile: profileData }),
+      body: JSON.stringify({
+        email,
+        password,
+        // Flatten profile fields to match backend API (T023-T025)
+        software_background: profileData.software_background,
+        hardware_experience: profileData.hardware_experience,
+        language_preference: profileData.language_preference || 'English',
+        python_level: profileData.python_level,
+        ros2_level: profileData.ros2_level,
+        gpu_available: profileData.gpu_available,
+        hardware_tier: profileData.hardware_tier,
+        primary_goal: profileData.primary_goal,
+      }),
     });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.error?.message || 'Signup failed');
+      throw new Error(error.message || error.error || 'Signup failed');
     }
 
     const data = await response.json();
 
-    // Store token and user data
-    localStorage.setItem('auth_token', data.token);
+    // Store token and user data (backend returns session.token, not top-level token)
+    localStorage.setItem('auth_token', data.session?.token || data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('profile', JSON.stringify(data.profile));
+    localStorage.setItem('profile', JSON.stringify(data.user.profile));
 
     setUser(data.user);
-    setProfile(data.profile);
+    setProfile(data.user.profile);
   };
 
   const login = async (email: string, password: string, rememberMe = false) => {
@@ -129,6 +170,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
     localStorage.removeItem('profile');
+    localStorage.removeItem('isLoggedIn'); // Clear login flag
     setUser(null);
     setProfile(null);
   };

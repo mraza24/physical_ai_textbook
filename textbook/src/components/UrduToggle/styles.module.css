@@ -1,0 +1,157 @@
+/* ============================================
+   URDU TOGGLE COMPONENT - HIGHLY VISIBLE
+   ============================================ */
+
+.urduToggleContainer {
+  margin: 2rem 0;
+  /* Ensure it's always visible */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 100;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* BIG VISIBLE BUTTON */
+.urduButton {
+  /* Ensure maximum visibility */
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  /* Large size */
+  padding: 1.25rem 2.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  /* Eye-catching gradient */
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+
+  /* Styling */
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+
+  /* Shadow for depth */
+  box-shadow:
+    0 8px 24px rgba(245, 87, 108, 0.4),
+    0 0 40px rgba(240, 147, 251, 0.3);
+
+  /* Smooth animation */
+  transition: all 0.3s ease;
+
+  /* Force above everything except navbar */
+  position: relative;
+  z-index: 1000 !important;
+
+  /* Ensure clickable */
+  pointer-events: auto !important;
+}
+
+.urduButton:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 12px 32px rgba(245, 87, 108, 0.6),
+    0 0 60px rgba(240, 147, 251, 0.5);
+}
+
+.urduButton:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.buttonIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.buttonText {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Status Badge */
+.statusBadge {
+  padding: 0.75rem 1.5rem;
+  background: rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 25px;
+  color: #667eea;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Content Areas */
+.contentArea {
+  margin-top: 2rem;
+  /* Ensure content is visible */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.urduContent,
+.englishContent {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  /* Ensure content is visible */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.urduContent {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+}
+
+.englishContent {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .urduButton {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .buttonIcon {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark Mode Support */
+[data-theme='dark'] .buttonWrapper {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+[data-theme='dark'] .statusBadge {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.4);
+  color: #9db4ff;
+}

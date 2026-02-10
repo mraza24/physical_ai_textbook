@@ -1,9 +1,14 @@
 ---
 sidebar_position: 1
 title: Module 3 Introduction
+id: m3-intro-page
 ---
 
+import UrduTranslateButton from '@site/src/components/UrduTranslateButton';
+
 # Module 3: The AI-Robot Brain (NVIDIA Isaac)
+
+<UrduTranslateButton />
 
 ## GPU-Accelerated Perception and Intelligence
 

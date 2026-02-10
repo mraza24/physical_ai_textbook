@@ -1,9 +1,14 @@
 ---
 sidebar_position: 1
 title: Module 1 Introduction
+id: m1-intro-page
 ---
 
+import UrduTranslateButton from '@site/src/components/UrduTranslateButton';
+
 # Module 1: The Robotic Nervous System (ROS 2)
+
+<UrduTranslateButton />
 
 ## Understanding the Communication Backbone of Modern Robotics
 

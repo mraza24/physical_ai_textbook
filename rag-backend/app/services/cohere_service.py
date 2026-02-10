@@ -28,8 +28,8 @@ class CohereService:
             )
 
         try:
-            self.client = cohere.Client(self.api_key)
-            logger.info("Cohere client initialized successfully")
+            self.client = cohere.Client(self.api_key, timeout=120) 
+            logger.info("Cohere client initialized successfully with 120s timeout")
         except Exception as e:
             logger.error(f"Failed to initialize Cohere client: {e}")
             raise

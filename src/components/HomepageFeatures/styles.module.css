@@ -1,11 +1,51 @@
+/* Purani .features class ko is se replace karein */
 .features {
   display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  justify-content: center;
+  align-items: stretch;
+  padding: 4rem 2rem;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
+/* Feature Cards ka naya look */
+.featureCard {
+  flex: 1;
+  min-width: 300px;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featureCard:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(110, 142, 251, 0.15);
+  border-color: #6e8efb;
+}
+
+/* SVG Images ko charm dene ke liye */
 .featureSvg {
-  height: 200px;
-  width: 200px;
+  height: 180px;
+  width: 180px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.featureDescription {
+  color: #666;
+  line-height: 1.6;
 }

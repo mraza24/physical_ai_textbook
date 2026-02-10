@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export interface TranslationResult {
   translatedContent: string;
@@ -11,7 +10,12 @@ export interface TranslationResult {
 }
 
 export const useTranslation = () => {
+  const { siteConfig } = useDocusaurusContext();
   const { isAuthenticated, profile, updateProfile } = useAuth();
+  
+  // ✅ FIX: process.env ko hata kar siteConfig use kiya
+  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+
   const [translating, setTranslating] = useState(false);
   const [language, setLanguage] = useState<'english' | 'urdu'>('english');
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
@@ -48,8 +52,8 @@ export const useTranslation = () => {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error?.message || 'Translation failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Translation failed');
       }
 
       const data: TranslationResult = await response.json();

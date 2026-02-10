@@ -1,0 +1,127 @@
+/**
+ * BRUTE FORCE CONTENT SWAP - CSS hard hide/show
+ * No animations, no transitions, instant swap
+ */
+
+.contentWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* English view - BLINK KILLER: force hide when Urdu is active */
+.englishView {
+  display: block;
+  width: 100%;
+}
+
+.englishView.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Urdu view - FORCE RTL ALIGNMENT */
+.urduView {
+  display: block !important;
+  width: 100%;
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: embed !important;
+}
+
+.urduView * {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.urduView h1,
+.urduView h2,
+.urduView h3,
+.urduView p,
+.urduView li {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.urduView.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Personalized view - NEON-GREEN GLOWING BORDER */
+.personalizedView {
+  display: block;
+  width: 100%;
+  background: #f8f9fa !important;
+  border: 2px solid #22c55e !important;
+  /* NEON-GREEN GLOWING BORDER */
+  box-shadow: 0 0 15px #22c55e !important;
+  padding: 2rem !important;
+  border-radius: 8px !important;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;
+  line-height: 1.8 !important;
+  position: relative;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px #22c55e;
+  }
+  50% {
+    box-shadow: 0 0 25px #22c55e, 0 0 35px #22c55e;
+  }
+}
+
+.personalizedView h1,
+.personalizedView h2,
+.personalizedView h3 {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;
+  color: #16a34a !important;
+}
+
+.personalizedView p,
+.personalizedView li {
+  line-height: 1.8 !important;
+}
+
+/* FLOATING BADGE at top-right: ✨ AI Optimized for You */
+.personalizedView::before {
+  content: "✨ AI Optimized for You";
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.5);
+  z-index: 10;
+  animation: badgeBounce 3s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.personalizedView.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}

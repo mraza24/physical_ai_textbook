@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
       label: 'Module 1: The Robotic Nervous System (ROS 2)',
       collapsed: false,
       items: [
-        'module1/intro',
+        'module1/m1-intro-page',
         'module1/chapter1-1-ros2-fundamentals',
         'module1/chapter1-2-nodes-communication',
         'module1/chapter1-3-launch-files',
@@ -33,7 +33,7 @@ const sidebars: SidebarsConfig = {
       label: 'Module 2: The Digital Twin (Gazebo & Unity)',
       collapsed: false,
       items: [
-        'module2/intro',
+        'module2/m2-intro-page',
         'module2/chapter2-1-digital-twin-intro',
         'module2/chapter2-2-gazebo-fundamentals',
         'module2/chapter2-3-unity-robotics',
@@ -46,7 +46,7 @@ const sidebars: SidebarsConfig = {
       label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac)',
       collapsed: false,
       items: [
-        'module3/intro',
+        'module3/m3-intro-page',
         'module3/chapter3-1-isaac-overview',
         'module3/chapter3-2-isaac-perception',
         'module3/chapter3-3-isaac-manipulation-nav',
@@ -59,7 +59,7 @@ const sidebars: SidebarsConfig = {
       label: 'Module 4: Vision-Language-Action (VLA)',
       collapsed: false,
       items: [
-        'module4/intro',
+        'module4/m4-intro-page',
         'module4/chapter4-1-vla-intro',
         'module4/chapter4-2-llm-integration',
         'module4/chapter4-3-whisper-voice',

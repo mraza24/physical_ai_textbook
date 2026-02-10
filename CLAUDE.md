@@ -208,3 +208,71 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- TypeScript 5.6.2 (Frontend), Python 3.11+ (Backend/Skills) (009-auth-personalization)
+- Neon Serverless Postgres (tables: `user`, `session`, `user_profiles`, `transformation_cache`) (009-auth-personalization)
+- Docusaurus 3.x (Static site generator for textbook content)
+- Qdrant Vector Database (RAG chatbot semantic search)
+
+## Agent Skills (Hackathon Features)
+
+### 1. User Authentication & Personalization
+- **User Signup**: Hardware/Software background profiling during account creation
+  - Fields: `software_background` (Beginner/Intermediate/Expert), `hardware_experience` (None/Basic/Advanced)
+  - Success notification with redirect to login page
+  - Backend API: `POST /api/auth/signup` (Port 4000)
+
+- **User Login**: JWT-based authentication with session persistence
+  - Backend API: `POST /api/auth/login` (Port 4000)
+  - Token storage: `localStorage.getItem('auth_token')`
+
+### 2. Chapter Personalization
+- **Dynamic Content Adaptation**: Personalize chapters based on user profile
+  - Component: `ChapterActions.tsx` (src/components/personalization/)
+  - Hook: `usePersonalization` (src/hooks/usePersonalization.ts)
+  - Backend API: `POST /api/personalize` (Port 4000)
+  - Features: Adjust code verbosity, concept depth, hardware-specific guidance
+  - Buttons appear on all `/docs/*` pages when authenticated
+
+### 3. Urdu Translation
+- **Multilingual Support**: Translate chapters to Urdu while preserving technical terms
+  - Hook: `useTranslation` (src/hooks/useTranslation.ts)
+  - Backend API: `POST /api/translate/urdu` (Port 4000)
+  - Features: RTL text rendering, technical term transliteration, Mermaid diagram translation
+  - Persistent language preference for authenticated users
+
+### 4. Global RAG Chatbot
+- **AI-Powered Tutoring**: Context-aware chatbot on every page
+  - Component: `RAGChatbot` (src/components/RAGChatbot/)
+  - Rendered globally via: `src/theme/Root.tsx`
+  - Backend API: `POST /api/chat` (Port 4000)
+  - Features: Glassmorphism UI, typewriter effect, citation links, mobile-optimized
+  - Vector Database: Qdrant for semantic search
+
+### 5. Modern Dark Theme Homepage
+- **Hero Section**: Animated purple/indigo gradient background
+  - File: `src/pages/index.tsx`
+  - Features: Floating particles, high-glow CTA button, glassmorphism stats bar
+  - Fully responsive for 4-7 inch mobile screens
+
+### 6. Mobile Optimization
+- **Responsive Design**: Optimized for 4-7 inch mobile screens
+  - Breakpoints: 768px (tablets), 480px (phones)
+  - Components: Homepage, Signup, Chatbot, Chapter actions
+  - CSS: Media queries with clamp() for fluid typography
+
+## Backend API Configuration
+- **Base URL**: `http://localhost:4000` (development)
+- **Configured in**: `docusaurus.config.ts` → `customFields.backendUrl`
+- **Authentication**: Bearer token via `Authorization` header
+- **Endpoints**:
+  - `/api/auth/signup` - User registration with profile
+  - `/api/auth/login` - JWT authentication
+  - `/api/personalize` - Chapter content adaptation
+  - `/api/translate/urdu` - Urdu translation
+  - `/api/chat` - RAG chatbot queries
+
+## Recent Changes
+- 009-auth-personalization: Added TypeScript 5.6.2 (Frontend), Python 3.11+ (Backend/Skills)
+- hackathon-finalization: Implemented modern dark theme homepage, glassmorphic chatbot, chapter personalization/translation buttons, mobile responsive design

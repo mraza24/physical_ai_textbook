@@ -1,15 +1,26 @@
 import { useState } from 'react';
 import { useAuth } from './useAuth';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export interface PersonalizationResult {
-  personalizedContent: string;
-  cacheHit: boolean;
-  profile: any;
+  transformed_content: string;
+  metadata: {
+    model: string;
+    changes_made: number;
+    complexity_level: string;
+    preserved_terms: string[];
+    cached: boolean;
+  };
+  cache_key: string;
+  processing_time_ms: number;
+  validation_warnings?: string[];
 }
 
 export const usePersonalization = () => {
+  // ✅ SAFE: Get API URL from Docusaurus context (no process.env in browser!)
+  const { siteConfig } = useDocusaurusContext();
+  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+
   const { isAuthenticated } = useAuth();
   const [personalizing, setPersonalizing] = useState(false);
   const [personalized, setPersonalized] = useState(false);
@@ -19,7 +30,7 @@ export const usePersonalization = () => {
   /**
    * Personalize chapter content
    */
-  const personalizeChapter = async (chapterId: string, originalContent: string) => {
+  const personalizeChapter = async (chapterPath: string, content: string) => {
     if (!isAuthenticated) {
       setError('Please sign in to personalize content');
       return;
@@ -41,17 +52,17 @@ export const usePersonalization = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ chapterId, originalContent }),
+        body: JSON.stringify({ chapterPath, content }),
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error?.message || 'Personalization failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Personalization failed');
       }
 
       const data: PersonalizationResult = await response.json();
 
-      setPersonalizedContent(data.personalizedContent);
+      setPersonalizedContent(data.transformed_content);
       setPersonalized(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Personalization failed';

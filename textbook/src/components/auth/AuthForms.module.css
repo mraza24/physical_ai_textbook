@@ -1,10 +1,41 @@
+/* Cyber-Physical Glassmorphism Container */
 .authForm {
-  max-width: 500px;
+  max-width: 550px;
   margin: 2rem auto;
-  padding: 2rem;
-  background: var(--ifm-background-surface-color);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+
+  /* Glassmorphism effect */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Neon purple border */
+  border: 2px solid rgba(147, 51, 234, 0.3);
+  border-radius: 12px;
+
+  /* Layered shadows for depth */
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.15),
+    inset 0 0 20px rgba(147, 51, 234, 0.05),
+    0 0 40px rgba(147, 51, 234, 0.1);
+
+  /* Subtle glow animation */
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 8px 32px 0 rgba(31, 38, 135, 0.15),
+      inset 0 0 20px rgba(147, 51, 234, 0.05),
+      0 0 40px rgba(147, 51, 234, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px 0 rgba(31, 38, 135, 0.15),
+      inset 0 0 20px rgba(147, 51, 234, 0.1),
+      0 0 60px rgba(147, 51, 234, 0.15);
+  }
 }
 
 .authForm h2 {
@@ -43,18 +74,38 @@
 .formGroup select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 4px;
+  border: 1px solid rgba(147, 51, 234, 0.2);
+  border-radius: 6px;
   font-size: 1rem;
-  background: var(--ifm-background-color);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--ifm-font-color-base);
+  transition: all 0.3s ease;
 }
 
 .formGroup input:focus,
 .formGroup select:focus {
   outline: none;
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 0 0 2px var(--ifm-color-primary-lightest);
+  border-color: rgba(147, 51, 234, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.3), inset 0 0 10px rgba(147, 51, 234, 0.1);
+}
+
+/* Neon-highlighted required fields */
+.neonSelect {
+  border: 2px solid rgba(147, 51, 234, 0.4) !important;
+  background: rgba(147, 51, 234, 0.05) !important;
+}
+
+.neonSelect:focus {
+  border-color: rgba(147, 51, 234, 0.8) !important;
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4), inset 0 0 15px rgba(147, 51, 234, 0.15) !important;
+}
+
+/* Required field asterisk */
+.required {
+  color: rgba(239, 68, 68, 0.8);
+  font-weight: bold;
+  margin-left: 0.25rem;
 }
 
 .checkboxGroup {
@@ -74,26 +125,55 @@
   cursor: pointer;
 }
 
+/* Cyber-Physical Purple Gradient Button */
 .submitButton {
   width: 100%;
-  padding: 0.875rem;
-  background: var(--ifm-color-primary);
+  padding: 1rem;
+
+  /* Purple gradient */
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
+
+  /* Neon border */
+  border: 2px solid rgba(147, 51, 234, 0.6);
+  border-radius: 8px;
+
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background 0.2s;
+
+  /* Glow effect */
+  box-shadow:
+    0 4px 15px rgba(139, 92, 246, 0.3),
+    0 0 20px rgba(139, 92, 246, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+
+  transition: all 0.3s ease;
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--ifm-color-primary-dark);
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  box-shadow:
+    0 6px 20px rgba(139, 92, 246, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 10px rgba(139, 92, 246, 0.4),
+    0 0 15px rgba(139, 92, 246, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .submitButton:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  box-shadow: none;
 }
 
 .error {

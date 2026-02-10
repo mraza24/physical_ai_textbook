@@ -1,9 +1,14 @@
 ---
 sidebar_position: 1
 title: Module 2 Introduction
+id: m2-intro-page
 ---
 
+import UrduTranslateButton from '@site/src/components/UrduTranslateButton';
+
 # Module 2: The Digital Twin (Gazebo & Unity)
+
+<UrduTranslateButton />
 
 ## Simulation as the Foundation of Robot Development
 

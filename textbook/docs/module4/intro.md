@@ -1,9 +1,14 @@
 ---
 sidebar_position: 1
 title: Module 4 Introduction
+id: m4-intro-page
 ---
 
+import UrduTranslateButton from '@site/src/components/UrduTranslateButton';
+
 # Module 4: Vision-Language-Action (VLA)
+
+<UrduTranslateButton />
 
 ## The Future of Embodied Intelligence
 

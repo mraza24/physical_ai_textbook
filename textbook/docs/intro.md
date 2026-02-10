@@ -3,9 +3,9 @@ sidebar_position: 1
 title: Physical AI & Humanoid Robotics
 ---
 
-# Physical AI & Humanoid Robotics
+import UrduToggle from '@site/src/components/UrduToggle';
 
-## Building Intelligent Embodied Systems with ROS 2, Digital Twins, and Vision-Language-Action Models
+<UrduToggle />
 
 ---
 

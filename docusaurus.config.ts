@@ -7,17 +7,22 @@ const config: Config = {
   tagline: 'Learn robotics, AI, and simulation',
   favicon: 'img/favicon.ico',
 
+  // ✅ FIX: customFields add kiya taake AuthProvider ko backendUrl mil sakay
+  customFields: {
+    backendUrl: 'http://localhost:3001', // Backend running on port 3001
+  },
+
   future: {
     v4: true,
   },
 
-  // Deployment configuration (auto-detects for Vercel/GitHub Pages)
-  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://mraza24.github.io',
-  baseUrl: '/',  // Always use root path for Vercel deployments
+  // ✅ FIX: process.env ko safer tareeqay se handle kiya
+  url: 'https://mraza24.github.io',
+  baseUrl: '/physical_ai_textbook/',
 
-  organizationName: 'mraza24',            // Your GitHub username
-  projectName: 'physical_ai_textbook',    // Your repo name
-  deploymentBranch: 'gh-pages',           // Branch to deploy to
+  organizationName: 'mraza24',
+  projectName: 'physical_ai_textbook',
+  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
 
@@ -38,9 +43,9 @@ const config: Config = {
           sidebarPath: require.resolve('./sidebars.ts'),
           editUrl: 'https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/',
         },
-        blog: false, // Optional: disable blog for Part 1
+        blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       } satisfies Preset.Options,
     ],
@@ -65,6 +70,16 @@ const config: Config = {
           label: 'Tutorial',
         },
         {
+          to: '/login',
+          label: 'Login',
+          position: 'right',
+        },
+        {
+          to: '/signup',
+          label: 'Sign Up',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/mraza24/physical_ai_textbook',
           label: 'GitHub',
           position: 'right',
@@ -80,23 +95,6 @@ const config: Config = {
             {
               label: 'Tutorial',
               to: '/docs/intro',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
             },
           ],
         },

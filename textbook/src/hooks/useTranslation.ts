@@ -1,21 +1,30 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export interface TranslationResult {
-  translatedContent: string;
-  cacheHit: boolean;
-  targetLanguage: string;
-  technicalTerms: Record<string, string>;
+  translated_content: string;
+  metadata: {
+    model: string;
+    preserved_terms: string[];
+    target_language: string;
+    cached: boolean;
+  };
+  cache_key: string;
+  processing_time_ms: number;
+  validation_warnings?: string[];
 }
 
 export const useTranslation = () => {
+  // ✅ SAFE: Get API URL from Docusaurus context (no process.env in browser!)
+  const { siteConfig } = useDocusaurusContext();
+  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+
   const { isAuthenticated, profile, updateProfile } = useAuth();
   const [translating, setTranslating] = useState(false);
   const [language, setLanguage] = useState<'english' | 'urdu'>('english');
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
-  const [technicalTerms, setTechnicalTerms] = useState<Record<string, string>>({});
+  const [technicalTerms, setTechnicalTerms] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Load language preference on mount (if authenticated)
@@ -30,36 +39,42 @@ export const useTranslation = () => {
   /**
    * Translate chapter to Urdu
    */
-  const translateToUrdu = async (chapterId: string, originalContent: string) => {
+  const translateToUrdu = async (chapterPath: string, content: string) => {
     setTranslating(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/translate`, {
+      const token = localStorage.getItem('auth_token');
+
+      if (!token) {
+        throw new Error('Not authenticated. Please sign in.');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/api/translate/urdu`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          chapterId,
-          originalContent,
-          targetLanguage: 'urdu',
+          chapterPath,
+          content,
         }),
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error?.message || 'Translation failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Translation failed');
       }
 
       const data: TranslationResult = await response.json();
 
-      setTranslatedContent(data.translatedContent);
-      setTechnicalTerms(data.technicalTerms);
+      setTranslatedContent(data.translated_content);
+      setTechnicalTerms(data.metadata.preserved_terms);
       setLanguage('urdu');
 
       // Persist language preference if authenticated
-      if (isAuthenticated) {
+      if (isAuthenticated && updateProfile) {
         try {
           await updateProfile({ language_preference: 'Urdu' });
         } catch (err) {
@@ -80,11 +95,11 @@ export const useTranslation = () => {
   const showOriginal = async () => {
     setLanguage('english');
     setTranslatedContent(null);
-    setTechnicalTerms({});
+    setTechnicalTerms([]);
     setError(null);
 
     // Persist language preference if authenticated
-    if (isAuthenticated) {
+    if (isAuthenticated && updateProfile) {
       try {
         await updateProfile({ language_preference: 'English' });
       } catch (err) {

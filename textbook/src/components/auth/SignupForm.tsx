@@ -13,7 +13,11 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // Profile fields
+  // REQUIRED PROFILE FIELDS (FR-001, FR-002)
+  const [softwareBackground, setSoftwareBackground] = useState<'Beginner' | 'Intermediate' | 'Expert'>('Beginner');
+  const [hardwareExperience, setHardwareExperience] = useState<'None' | 'Basic' | 'Advanced'>('None');
+
+  // OPTIONAL PROFILE FIELDS (existing)
   const [pythonLevel, setPythonLevel] = useState<string>('Beginner');
   const [ros2Level, setRos2Level] = useState<string>('None');
   const [gpuAvailable, setGpuAvailable] = useState<string>('No');
@@ -47,12 +51,16 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
 
     try {
       const profile: UserProfile = {
+        // REQUIRED FIELDS (FR-001, FR-002)
+        software_background: softwareBackground,
+        hardware_experience: hardwareExperience,
+        language_preference: 'English',
+        // OPTIONAL FIELDS
         python_level: pythonLevel,
         ros2_level: ros2Level,
         gpu_available: gpuAvailable,
         hardware_tier: hardwareTier,
         primary_goal: primaryGoal,
-        language_preference: 'English',
       };
 
       await signup(email, password, profile);
@@ -109,9 +117,49 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         />
       </div>
 
-      <h3>Background Questions</h3>
+      <h3>Personalization Profile</h3>
       <p className={styles.helpText}>
-        Help us personalize your learning experience
+        Help us adapt content to your skill level
+      </p>
+
+      {/* REQUIRED FIELDS (FR-001, FR-002) */}
+      <div className={styles.formGroup}>
+        <label htmlFor="softwareBackground">
+          Software Background <span className={styles.required}>*</span>
+        </label>
+        <select
+          id="softwareBackground"
+          value={softwareBackground}
+          onChange={(e) => setSoftwareBackground(e.target.value as 'Beginner' | 'Intermediate' | 'Expert')}
+          required
+          className={styles.neonSelect}
+        >
+          <option value="Beginner">Beginner (Learning programming fundamentals)</option>
+          <option value="Intermediate">Intermediate (1-3 years experience)</option>
+          <option value="Expert">Expert (3+ years, production systems)</option>
+        </select>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="hardwareExperience">
+          Hardware Experience <span className={styles.required}>*</span>
+        </label>
+        <select
+          id="hardwareExperience"
+          value={hardwareExperience}
+          onChange={(e) => setHardwareExperience(e.target.value as 'None' | 'Basic' | 'Advanced')}
+          required
+          className={styles.neonSelect}
+        >
+          <option value="None">None (First time with robotics hardware)</option>
+          <option value="Basic">Basic (Tinkered with Arduino/Raspberry Pi)</option>
+          <option value="Advanced">Advanced (Built robots, debugged hardware)</option>
+        </select>
+      </div>
+
+      <h3>Additional Details (Optional)</h3>
+      <p className={styles.helpText}>
+        Further customize your experience
       </p>
 
       <div className={styles.formGroup}>

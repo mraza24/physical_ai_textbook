@@ -3,7 +3,11 @@ sidebar_position: 2
 title: Preface
 ---
 
+import UrduTranslateButton from '@site/src/components/UrduTranslateButton';
+
 # Preface
+
+<UrduTranslateButton />
 
 ## Why Physical AI Matters Now
 

@@ -1,0 +1,472 @@
+/* ============================================
+   Bulldog Assistant - Floating AI Helper
+   ============================================ */
+
+.bulldogContainer {
+  /* FORCE TO ABSOLUTE RIGHT CORNER - NO GHOST DIV BLOCKING */
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  width: 350px !important; /* Fixed width - not full screen */
+  height: auto;
+  z-index: 1000 !important; /* Well below navbar (9999) and buttons (9998) */
+  pointer-events: none !important; /* CRITICAL: Wrapper doesn't capture clicks */
+}
+
+/* Floating Action Button (FAB) - Orange/Brown Bulldog Theme */
+.fabButton {
+  position: absolute !important; /* Relative to container */
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8c42, #ff6b35); /* Orange gradient */
+  color: white;
+  border: none;
+  cursor: pointer !important;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 2s infinite;
+  pointer-events: auto !important; /* CRITICAL: FAB is clickable */
+  z-index: 1001 !important; /* Above container */
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.fabButton:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 6px 30px rgba(255, 107, 53, 0.6);
+  animation: none;
+}
+
+.fabIcon {
+  font-size: 28px;
+}
+
+.fabButtonActive {
+  background: linear-gradient(135deg, #dc2626, #ef4444); /* Red when active */
+  animation: none;
+}
+
+.fabPulse {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  background: #10b981; /* Green pulse */
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* Chat Window - Bulldog Theme */
+.chatWindow {
+  position: absolute !important; /* Relative to container */
+  bottom: 70px !important; /* Above FAB button */
+  right: 0 !important;
+  width: 350px !important; /* Match container width */
+  height: 500px;
+  max-height: calc(100vh - 120px); /* Keep header within viewport */
+  display: flex;
+  flex-direction: column;
+  z-index: 1001 !important; /* Above container */
+  background: #1a1a1a; /* Dark background */
+  border-radius: 16px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 140, 66, 0.2); /* Orange tint */
+  overflow: hidden; /* Prevent header overflow */
+  animation: slideUp 0.3s ease-out;
+  pointer-events: auto !important; /* CRITICAL: Chat window is clickable */
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Orange Gradient Header */
+.chatHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px 16px 0 0; /* Match window border-radius */
+  margin: 0;
+  position: relative;
+  top: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  animation: wag 2s infinite;
+}
+
+@keyframes wag {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.headerSubtitle {
+  font-size: 11px;
+  opacity: 0.85;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.closeButton {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Messages Container */
+.messagesContainer {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: #1a1a1a;
+  scrollbar-width: thin;
+  scrollbar-color: #ff8c42 #1a1a1a;
+}
+
+.messagesContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messagesContainer::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb {
+  background: #ff8c42;
+  border-radius: 3px;
+}
+
+.messagesContainer::-webkit-scrollbar-thumb:hover {
+  background: #ff6b35;
+}
+
+/* Welcome Message */
+.welcomeMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #e5e5e5;
+}
+
+.welcomeIcon {
+  margin-bottom: 16px;
+  color: #ff8c42;
+  animation: wag 2s infinite;
+}
+
+.welcomeMessage h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcomeMessage p {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Message Bubbles */
+.messageWrapper {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.userMessage {
+  align-items: flex-end;
+}
+
+.assistantMessage {
+  align-items: flex-start;
+}
+
+.messageBubble {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.userMessage .messageBubble {
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.assistantMessage .messageBubble {
+  background: #2a2a2a;
+  color: #e5e5e5;
+  border: 1px solid rgba(255, 140, 66, 0.1);
+  border-bottom-left-radius: 4px;
+}
+
+/* Loading Indicator */
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #2a2a2a;
+  border-radius: 12px;
+  max-width: 85%;
+  border: 1px solid rgba(255, 140, 66, 0.1);
+}
+
+.loadingDots {
+  display: flex;
+  gap: 6px;
+}
+
+.loadingDots span {
+  width: 8px;
+  height: 8px;
+  background: #ff8c42;
+  border-radius: 50%;
+  animation: bounceLoading 1.4s infinite ease-in-out;
+}
+
+.loadingDots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loadingDots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounceLoading {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Input Form */
+.inputForm {
+  display: flex;
+  padding: 16px 20px;
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255, 140, 66, 0.1);
+  gap: 0;
+  position: relative;
+}
+
+.input {
+  flex: 1;
+  padding: 12px 50px 12px 20px;
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 140, 66, 0.2);
+  border-radius: 24px;
+  outline: none;
+  font-size: 14px;
+  color: #e5e5e5;
+  transition: all 0.2s;
+}
+
+.input::placeholder {
+  color: #6b7280;
+}
+
+.input:focus {
+  border-color: #ff8c42;
+  box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+  background: #2d2d2d;
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Send Button */
+.sendButton {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.3);
+}
+
+.sendButton:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 140, 66, 0.5);
+}
+
+.sendButton:disabled {
+  background: #4a4a4a;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .chatWindow {
+    width: calc(100vw - 20px);
+    height: 500px;
+    max-height: calc(100vh - 100px);
+    bottom: 80px; /* Above smaller FAB */
+    right: 10px;
+  }
+
+  .fabButton {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatWindow {
+    width: calc(100vw - 16px);
+    height: 450px;
+    max-height: calc(100vh - 90px);
+    bottom: 75px; /* Above smaller FAB */
+    right: 8px;
+  }
+
+  .messagesContainer {
+    padding: 16px;
+  }
+
+  .fabButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .messageBubble {
+    max-width: 90%;
+    font-size: 13px;
+  }
+
+  .inputForm {
+    padding: 12px 16px;
+  }
+
+  .input {
+    padding: 10px 45px 10px 16px;
+    font-size: 13px;
+  }
+
+  .sendButton {
+    right: 20px;
+    width: 32px;
+    height: 32px;
+  }
+}
