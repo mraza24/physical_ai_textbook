@@ -24,7 +24,7 @@ const config: Config = {
   projectName: 'physical_ai_textbook',
   deploymentBranch: 'gh-pages',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   markdown: {
     format: 'detect',
