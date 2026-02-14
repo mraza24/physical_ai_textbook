@@ -42,7 +42,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // ✅ SAFE: Get API URL from Docusaurus context inside component (no process.env in browser!)
   const { siteConfig } = useDocusaurusContext();
-  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
 
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -127,11 +127,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const login = async (email: string, password: string, rememberMe = false) => {
-    const response = await fetch(`${API_BASE_URL}/api/auth/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, rememberMe }),
-    });
+    const response = await fetch(`${API_BASE_URL}/api/auth/sign-in/email`, { // اسے بدل دیا
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password, rememberMe }),
+});
 
     if (!response.ok) {
       const error = await response.json();
