@@ -9,11 +9,9 @@ export interface User {
 }
 
 export interface UserProfile {
-  // NEW REQUIRED FIELDS (FR-001, FR-002)
   software_background: 'Beginner' | 'Intermediate' | 'Expert';
   hardware_experience: 'None' | 'Basic' | 'Advanced';
   language_preference: string;
-  // EXISTING OPTIONAL FIELDS
   python_level?: string;
   ros2_level?: string;
   gpu_available?: string;
@@ -40,54 +38,30 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // ✅ SAFE: Get API URL from Docusaurus context inside component (no process.env in browser!)
   const { siteConfig } = useDocusaurusContext();
-const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
+  // ✅ FIXED: Hardcoded Render URL
+  const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
 
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Load user from localStorage on mount
   useEffect(() => {
     const loadAuthState = () => {
       const token = localStorage.getItem('auth_token');
       const storedUser = localStorage.getItem('user');
       const storedProfile = localStorage.getItem('profile');
 
-      console.log('[AuthProvider] Loading auth state:', {
-        hasToken: !!token,
-        hasUser: !!storedUser,
-        hasProfile: !!storedProfile
-      });
-
       if (token && storedUser && storedProfile) {
         try {
-          const parsedUser = JSON.parse(storedUser);
-          const parsedProfile = JSON.parse(storedProfile);
-
-          console.log('[AuthProvider] Restored session:', {
-            userId: parsedUser.id,
-            email: parsedUser.email,
-            profile: parsedProfile
-          });
-
-          setUser(parsedUser);
-          setProfile(parsedProfile);
+          setUser(JSON.parse(storedUser));
+          setProfile(JSON.parse(storedProfile));
         } catch (error) {
-          console.error('[AuthProvider] Failed to parse stored auth data:', error);
-          localStorage.removeItem('auth_token');
-          localStorage.removeItem('user');
-          localStorage.removeItem('profile');
+          localStorage.clear();
         }
-      } else {
-        console.log('[AuthProvider] No valid session found');
       }
-
-      // CRITICAL: Set loading false AFTER state updates
       setIsLoading(false);
     };
-
     loadAuthState();
   }, []);
 
@@ -98,7 +72,6 @@ const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
       body: JSON.stringify({
         email,
         password,
-        // Flatten profile fields to match backend API (T023-T025)
         software_background: profileData.software_background,
         hardware_experience: profileData.hardware_experience,
         language_preference: profileData.language_preference || 'English',
@@ -110,48 +83,50 @@ const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
       }),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || error.error || 'Signup failed');
-    }
-
     const data = await response.json();
 
-    // Store token and user data (backend returns session.token, not top-level token)
+    if (!response.ok) {
+      // ✅ FIXED: Specific check for existing user to avoid generic server error
+      if (data.body?.code === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL' || data.message?.includes('already exists')) {
+        throw new Error('This email is already registered. Please login instead.');
+      }
+      throw new Error(data.message || 'Signup failed');
+    }
+
     localStorage.setItem('auth_token', data.session?.token || data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
     localStorage.setItem('profile', JSON.stringify(data.user.profile));
 
     setUser(data.user);
     setProfile(data.user.profile);
+    localStorage.setItem('isLoggedIn', 'true');
   };
 
   const login = async (email: string, password: string, rememberMe = false) => {
-    const response = await fetch(`${API_BASE_URL}/api/auth/sign-in/email`, { // اسے بدل دیا
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ email, password, rememberMe }),
-});
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error?.message || 'Login failed');
-    }
+    // ✅ FIXED: Using the correct Better-Auth endpoint
+    const response = await fetch(`${API_BASE_URL}/api/auth/sign-in/email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, rememberMe }),
+    });
 
     const data = await response.json();
 
-    // Store token and user data
-    localStorage.setItem('auth_token', data.token);
+    if (!response.ok) {
+      throw new Error(data.message || data.error?.message || 'Login failed');
+    }
+
+    localStorage.setItem('auth_token', data.token || data.session?.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('profile', JSON.stringify(data.profile));
+    localStorage.setItem('profile', JSON.stringify(data.profile || data.user.profile));
 
     setUser(data.user);
-    setProfile(data.profile);
+    setProfile(data.profile || data.user.profile);
+    localStorage.setItem('isLoggedIn', 'true');
   };
 
   const logout = async () => {
     const token = localStorage.getItem('auth_token');
-
     if (token) {
       try {
         await fetch(`${API_BASE_URL}/api/auth/logout`, {
@@ -165,22 +140,15 @@ const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
         console.error('Logout API call failed:', error);
       }
     }
-
-    // Clear local state
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('profile');
-    localStorage.removeItem('isLoggedIn'); // Clear login flag
+    localStorage.clear();
     setUser(null);
     setProfile(null);
+    window.location.href = '/physical_ai_textbook/login';
   };
 
   const updateProfile = async (updates: Partial<UserProfile>) => {
     const token = localStorage.getItem('auth_token');
-
-    if (!token) {
-      throw new Error('Not authenticated');
-    }
+    if (!token) throw new Error('Not authenticated');
 
     const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
       method: 'PUT',
@@ -191,55 +159,38 @@ const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
       body: JSON.stringify(updates),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error?.message || 'Profile update failed');
-    }
-
     const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || 'Profile update failed');
 
-    // Update local state
     localStorage.setItem('profile', JSON.stringify(data.profile));
     setProfile(data.profile);
   };
 
   const refreshProfile = async () => {
     const token = localStorage.getItem('auth_token');
-
-    if (!token) {
-      throw new Error('Not authenticated');
-    }
+    if (!token) return;
 
     const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error?.message || 'Failed to fetch profile');
+    if (response.ok) {
+      const data = await response.json();
+      localStorage.setItem('profile', JSON.stringify(data.profile));
+      setProfile(data.profile);
     }
-
-    const data = await response.json();
-
-    // Update local state
-    localStorage.setItem('profile', JSON.stringify(data.profile));
-    setProfile(data.profile);
   };
 
-  const value: AuthContextType = {
-    user,
-    profile,
-    isAuthenticated: !!user,
-    isLoading,
-    login,
-    signup,
-    logout,
-    updateProfile,
-    refreshProfile,
-  };
+  return (
+    <AuthContext.Provider value={{ user, profile, isAuthenticated: !!user, isLoading, login, signup, logout, updateProfile, refreshProfile }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (context === undefined) throw new Error('useAuth must be used within AuthProvider');
+  return context;
 };
