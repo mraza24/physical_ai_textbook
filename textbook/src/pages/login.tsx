@@ -10,7 +10,7 @@ function LoginForm() {
   const history = useHistory();
 
   // Get backend URL and baseUrl from config
-  const API_BASE_URL = (siteConfig.customFields?.backendUrl as string) || 'http://localhost:4000';
+const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
   const baseUrl = siteConfig.baseUrl || '/';
 
   const [email, setEmail] = useState('');
