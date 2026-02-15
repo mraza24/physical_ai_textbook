@@ -39,7 +39,8 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { siteConfig } = useDocusaurusContext();
-  // ✅ FIXED: Hardcoded Render URL
+  
+  // ✅ FIXED: Hardcoded Render URL for production stability
   const API_BASE_URL = 'https://physical-ai-auth-backend.onrender.com';
 
   const [user, setUser] = useState<User | null>(null);
@@ -86,11 +87,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const data = await response.json();
 
     if (!response.ok) {
-      // ✅ FIXED: Specific check for existing user to avoid generic server error
-      if (data.body?.code === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL' || data.message?.includes('already exists')) {
+      // ✅ UNIVERSAL ERROR CHECK: Detects 'already exists' in any field or status code
+      const errorMessage = (data.message || data.code || JSON.stringify(data)).toLowerCase();
+      const isDuplicate = 
+        errorMessage.includes('already') || 
+        errorMessage.includes('exists') || 
+        response.status === 422;
+
+      if (isDuplicate) {
         throw new Error('This email is already registered. Please login instead.');
       }
-      throw new Error(data.message || 'Signup failed');
+      throw new Error(data.message || 'Signup failed due to server error');
     }
 
     localStorage.setItem('auth_token', data.session?.token || data.token);
@@ -103,7 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const login = async (email: string, password: string, rememberMe = false) => {
-    // ✅ FIXED: Using the correct Better-Auth endpoint
+    // ✅ FIXED: Correct Better-Auth sign-in endpoint
     const response = await fetch(`${API_BASE_URL}/api/auth/sign-in/email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -113,7 +120,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || data.error?.message || 'Login failed');
+      throw new Error(data.message || data.error?.message || 'Login failed. Check your credentials.');
     }
 
     localStorage.setItem('auth_token', data.token || data.session?.token);
