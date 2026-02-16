@@ -26,7 +26,11 @@ if (!corsOrigins.includes('https://physical-ai-textbook-jet.vercel.app')) {
 }
 
 app.use(cors({
-  origin: corsOrigins, // اب یہ ایک صاف ستھری لسٹ ہے
+  // براہ راست لنک ڈالنے سے ویری ایبل کی غلطی کا خطرہ ختم ہو جاتا ہے
+  origin: [
+    "https://physical-ai-textbook-jet.vercel.app", 
+    "http://localhost:3000"
+  ], 
   credentials: true, 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
