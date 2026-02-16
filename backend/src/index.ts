@@ -15,10 +15,18 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// CORS Configuration
-const corsOrigins = process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'];
+// CORS Configuration - 100% Fixed Version
+const corsOrigins = process.env.CORS_ORIGINS 
+  ? process.env.CORS_ORIGINS.split(',').map(origin => origin.trim()) 
+  : ['http://localhost:3000'];
+
+// ورسل کا لنک لازمی شامل کریں اگر وہ لسٹ میں نہیں ہے
+if (!corsOrigins.includes('https://physical-ai-textbook-jet.vercel.app')) {
+  corsOrigins.push('https://physical-ai-textbook-jet.vercel.app');
+}
+
 app.use(cors({
-  origin: corsOrigins,
+  origin: corsOrigins, // اب یہ ایک صاف ستھری لسٹ ہے
   credentials: true, 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
