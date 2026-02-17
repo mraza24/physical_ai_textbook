@@ -27,10 +27,16 @@ export const auth = betterAuth({
     schema, // Pass schema object so Better-Auth can find all tables
   }),
 
-  // ✅ Added Trusted Origins to fix "Invalid Origin" error
+  // ✅ Trusted Origins Configuration (CRITICAL for Production)
+  // Better-Auth validates request origins separately from Express CORS
+  // This fixes "Invalid Origin" errors on production Vercel deployments
+  // Refs: https://github.com/better-auth/better-auth/issues/2203
   trustedOrigins: [
-    'https://physical-ai-textbook-jet.vercel.app',
-    'http://localhost:3000'
+    'https://physical-ai-textbook-jet.vercel.app', // Production frontend (Vercel)
+    'http://localhost:3000', // Local development
+    'http://localhost:3001', // Alternative local port
+    // Support additional origins from environment variable (comma-separated)
+    ...(process.env.TRUSTED_ORIGINS?.split(',').map(origin => origin.trim()) || []),
   ],
 
   // JWT secret for signing tokens
