@@ -129,7 +129,7 @@ router.post('/', async (req: AuthRequest, res: Response): Promise<void> => {
       res.status(200).json({
         transformed_content: cached.transformed_content,
         metadata: cached.transformation_metadata
-          ? { ...cached.transformation_metadata, cached: true }
+          ? { ...(cached.transformation_metadata as object), cached: true }
           : { cached: true },
         cache_key: cacheKey,
         processing_time_ms: processingTime,

@@ -158,7 +158,7 @@ router.post('/urdu', async (req: AuthRequest, res: Response): Promise<void> => {
       res.status(200).json({
         translated_content: cached.transformed_content,
         metadata: cached.transformation_metadata
-          ? { ...cached.transformation_metadata, cached: true }
+          ? { ...(cached.transformation_metadata as object), cached: true }
           : { cached: true },
         cache_key: cacheKey,
         processing_time_ms: processingTime,
