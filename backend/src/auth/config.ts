@@ -31,12 +31,16 @@ if (!process.env.JWT_SECRET) {
 }
 
 export const auth = betterAuth({
+  trustedOrigins: [
+    'https://physical-ai-textbook-jet.vercel.app', // آپ کا ورسل فرنٹ اینڈ
+    'http://localhost:3000', // لوکل ٹیسٹنگ کے لیے (اگر ضرورت ہو)
+  ],
   // Database adapter configuration
   database: drizzleAdapter(db, {
     provider: 'pg', // PostgreSQL (Neon)
     schema, // Pass schema object so Better-Auth can find all tables
   }),
-
+baseURL: 'https://physical-ai-auth-backend.onrender.com',
   // JWT secret for signing tokens
   secret: process.env.JWT_SECRET!,
 

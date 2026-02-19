@@ -119,12 +119,22 @@ throw new Error('Server error - backend returned an invalid response. Please try
 
       // CORRECT REDIRECT: Navigate to home page with proper baseUrl
       setTimeout(() => {
-        console.log('[Login] CORRECT REDIRECT: Navigating to home');
-        window.location.href = '/physical_ai_textbook/';
-      }, 1000);
+  console.log('[Login] CORRECT REDIRECT: Navigating to home');
+  // اسے بدل دیں
+  window.location.href = baseUrl; 
+}, 1000);
 
-    } catch (err) {
-      console.error('[Login] ❌ Error:', err);
+   } catch (err) {
+  console.error('[Login] ❌ Error:', err);
+
+  if (err instanceof Error && err.message.includes('not found')) {
+      setError('❌ Account not found. Redirecting to signup...');
+      setTimeout(() => {
+          window.location.href = `${baseUrl}signup`; // سائن اپ پر بھیج دیں
+      }, 2000);
+      return;
+  }
+  // ... باقی ایرر ہینڈلنگ ویسے ہی رہنے دیں
 
       // User-friendly error messages
       let errorMessage = 'Login failed. Please try again.';
