@@ -61,11 +61,16 @@ if (!process.env.JWT_SECRET) {
         'Generate one with: openssl rand -base64 32');
 }
 exports.auth = (0, better_auth_1.betterAuth)({
+    trustedOrigins: [
+        'https://physical-ai-textbook-jet.vercel.app', // آپ کا ورسل فرنٹ اینڈ
+        'http://localhost:3000', // لوکل ٹیسٹنگ کے لیے (اگر ضرورت ہو)
+    ],
     // Database adapter configuration
     database: (0, drizzle_1.drizzleAdapter)(connection_1.db, {
         provider: 'pg', // PostgreSQL (Neon)
         schema, // Pass schema object so Better-Auth can find all tables
     }),
+    baseURL: 'https://physical-ai-auth-backend.onrender.com',
     // JWT secret for signing tokens
     secret: process.env.JWT_SECRET,
     // Session configuration
