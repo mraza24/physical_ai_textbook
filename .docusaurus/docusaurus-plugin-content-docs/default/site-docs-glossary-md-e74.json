@@ -1,0 +1,28 @@
+{
+  "id": "glossary",
+  "title": "Glossary",
+  "description": "A comprehensive list of technical terms used throughout this textbook.",
+  "source": "@site/docs/glossary.md",
+  "sourceDirName": ".",
+  "slug": "/glossary",
+  "permalink": "/physical_ai_textbook/docs/glossary",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/glossary.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 99,
+  "frontMatter": {
+    "sidebar_position": 99,
+    "title": "Glossary"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Appendix G - Additional Resources",
+    "permalink": "/physical_ai_textbook/docs/appendices/resources"
+  },
+  "next": {
+    "title": "References",
+    "permalink": "/physical_ai_textbook/docs/references"
+  }
+}

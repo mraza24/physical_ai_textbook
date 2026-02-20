@@ -1,0 +1,24 @@
+{
+  "id": "appendices/cloud-vs-onprem",
+  "title": "cloud-vs-onprem",
+  "description": "sidebar_position: 5",
+  "source": "@site/docs/appendices/cloud-vs-onprem.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/cloud-vs-onprem",
+  "permalink": "/physical_ai_textbook/docs/appendices/cloud-vs-onprem",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/cloud-vs-onprem.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Appendix C - Launch File Reference",
+    "permalink": "/physical_ai_textbook/docs/appendices/launch-files"
+  },
+  "next": {
+    "title": "Appendix G - Additional Resources",
+    "permalink": "/physical_ai_textbook/docs/appendices/resources"
+  }
+}

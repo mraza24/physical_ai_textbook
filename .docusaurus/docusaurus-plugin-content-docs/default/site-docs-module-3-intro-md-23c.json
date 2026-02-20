@@ -1,0 +1,28 @@
+{
+  "id": "module3/intro",
+  "title": "Module 3 Introduction",
+  "description": "GPU-Accelerated Perception and Intelligence",
+  "source": "@site/docs/module3/intro.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/intro",
+  "permalink": "/physical_ai_textbook/docs/module3/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module3/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Module 3 Introduction"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 2.4 - Sensor Simulation and VSLAM",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-4-sensors-vslam"
+  },
+  "next": {
+    "title": "Chapter 3.1 - NVIDIA Isaac Overview",
+    "permalink": "/physical_ai_textbook/docs/module3/chapter3-1-isaac-overview"
+  }
+}

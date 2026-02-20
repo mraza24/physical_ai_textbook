@@ -1,0 +1,28 @@
+{
+  "id": "course-mapping",
+  "title": "Course-to-Chapter Mapping",
+  "description": "13-Week Semester Course Schedule",
+  "source": "@site/docs/course-mapping.md",
+  "sourceDirName": ".",
+  "slug": "/course-mapping",
+  "permalink": "/physical_ai_textbook/docs/course-mapping",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/course-mapping.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Course-to-Chapter Mapping"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "How to Use This Book",
+    "permalink": "/physical_ai_textbook/docs/how-to-use"
+  },
+  "next": {
+    "title": "Module 1 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module1/intro"
+  }
+}

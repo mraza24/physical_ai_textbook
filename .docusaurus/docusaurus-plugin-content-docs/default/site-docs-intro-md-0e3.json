@@ -1,0 +1,24 @@
+{
+  "id": "intro",
+  "title": "Physical AI & Humanoid Robotics",
+  "description": "Building Intelligent Embodied Systems with ROS 2, Digital Twins, and Vision-Language-Action Models",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/physical_ai_textbook/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Physical AI & Humanoid Robotics"
+  },
+  "sidebar": "textbookSidebar",
+  "next": {
+    "title": "Preface",
+    "permalink": "/physical_ai_textbook/docs/preface"
+  }
+}

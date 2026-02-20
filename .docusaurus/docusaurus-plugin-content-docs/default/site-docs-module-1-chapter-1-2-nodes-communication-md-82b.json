@@ -1,0 +1,28 @@
+{
+  "id": "module1/chapter1-2-nodes-communication",
+  "title": "Chapter 1.2 - ROS 2 Nodes and Communication",
+  "description": "Module: 1 - The Robotic Nervous System",
+  "source": "@site/docs/module1/chapter1-2-nodes-communication.md",
+  "sourceDirName": "module1",
+  "slug": "/module1/chapter1-2-nodes-communication",
+  "permalink": "/physical_ai_textbook/docs/module1/chapter1-2-nodes-communication",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module1/chapter1-2-nodes-communication.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Chapter 1.2 - ROS 2 Nodes and Communication"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 1.1 - ROS 2 Fundamentals",
+    "permalink": "/physical_ai_textbook/docs/module1/chapter1-1-ros2-fundamentals"
+  },
+  "next": {
+    "title": "Chapter 1.3 - Launch Files and Configuration",
+    "permalink": "/physical_ai_textbook/docs/module1/chapter1-3-launch-files"
+  }
+}

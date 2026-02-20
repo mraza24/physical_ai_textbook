@@ -1,0 +1,28 @@
+{
+  "id": "module3/chapter3-3-isaac-manipulation-nav",
+  "title": "Chapter 3.3 - Isaac Manipulation and Navigation",
+  "description": "Module: 3 - The AI-Robot Brain",
+  "source": "@site/docs/module3/chapter3-3-isaac-manipulation-nav.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/chapter3-3-isaac-manipulation-nav",
+  "permalink": "/physical_ai_textbook/docs/module3/chapter3-3-isaac-manipulation-nav",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module3/chapter3-3-isaac-manipulation-nav.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Chapter 3.3 - Isaac Manipulation and Navigation"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 3.2 - Isaac Perception Pipeline",
+    "permalink": "/physical_ai_textbook/docs/module3/chapter3-2-isaac-perception"
+  },
+  "next": {
+    "title": "Chapter 3.4 - Isaac Gym and RL (Optional)",
+    "permalink": "/physical_ai_textbook/docs/module3/chapter3-4-isaac-gym-rl"
+  }
+}

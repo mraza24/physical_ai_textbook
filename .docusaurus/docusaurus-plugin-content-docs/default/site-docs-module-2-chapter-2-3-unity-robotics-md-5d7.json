@@ -1,0 +1,28 @@
+{
+  "id": "module2/chapter2-3-unity-robotics",
+  "title": "Chapter 2.3 - Unity for Robotics",
+  "description": "Module: 2 - The Digital Twin",
+  "source": "@site/docs/module2/chapter2-3-unity-robotics.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/chapter2-3-unity-robotics",
+  "permalink": "/physical_ai_textbook/docs/module2/chapter2-3-unity-robotics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module2/chapter2-3-unity-robotics.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4,
+    "title": "Chapter 2.3 - Unity for Robotics"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 2.2 - Gazebo Simulation Fundamentals",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-2-gazebo-fundamentals"
+  },
+  "next": {
+    "title": "Chapter 2.4 - Sensor Simulation and VSLAM",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-4-sensors-vslam"
+  }
+}

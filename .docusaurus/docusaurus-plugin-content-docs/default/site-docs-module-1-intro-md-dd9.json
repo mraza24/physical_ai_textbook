@@ -1,0 +1,28 @@
+{
+  "id": "module1/intro",
+  "title": "Module 1 Introduction",
+  "description": "Understanding the Communication Backbone of Modern Robotics",
+  "source": "@site/docs/module1/intro.md",
+  "sourceDirName": "module1",
+  "slug": "/module1/intro",
+  "permalink": "/physical_ai_textbook/docs/module1/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module1/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Module 1 Introduction"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Course-to-Chapter Mapping",
+    "permalink": "/physical_ai_textbook/docs/course-mapping"
+  },
+  "next": {
+    "title": "Chapter 1.1 - ROS 2 Fundamentals",
+    "permalink": "/physical_ai_textbook/docs/module1/chapter1-1-ros2-fundamentals"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "appendices/troubleshooting",
+  "title": "Appendix F - Troubleshooting Guide",
+  "description": "Comprehensive solutions to common errors across all modules.",
+  "source": "@site/docs/appendices/troubleshooting.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/troubleshooting",
+  "permalink": "/physical_ai_textbook/docs/appendices/troubleshooting",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/troubleshooting.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6,
+    "title": "Appendix F - Troubleshooting Guide"
+  }
+}

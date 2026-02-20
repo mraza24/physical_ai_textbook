@@ -1,0 +1,28 @@
+{
+  "id": "module1/chapter1-1-ros2-fundamentals",
+  "title": "Chapter 1.1 - ROS 2 Fundamentals",
+  "description": "Module: 1 - The Robotic Nervous System",
+  "source": "@site/docs/module1/chapter1-1-ros2-fundamentals.md",
+  "sourceDirName": "module1",
+  "slug": "/module1/chapter1-1-ros2-fundamentals",
+  "permalink": "/physical_ai_textbook/docs/module1/chapter1-1-ros2-fundamentals",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module1/chapter1-1-ros2-fundamentals.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Chapter 1.1 - ROS 2 Fundamentals"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Module 1 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module1/intro"
+  },
+  "next": {
+    "title": "Chapter 1.2 - ROS 2 Nodes and Communication",
+    "permalink": "/physical_ai_textbook/docs/module1/chapter1-2-nodes-communication"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "module2/chapter2-4-sensors-vslam",
+  "title": "Chapter 2.4 - Sensor Simulation and VSLAM",
+  "description": "Module: 2 - The Digital Twin",
+  "source": "@site/docs/module2/chapter2-4-sensors-vslam.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/chapter2-4-sensors-vslam",
+  "permalink": "/physical_ai_textbook/docs/module2/chapter2-4-sensors-vslam",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module2/chapter2-4-sensors-vslam.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Chapter 2.4 - Sensor Simulation and VSLAM"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 2.3 - Unity for Robotics",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-3-unity-robotics"
+  },
+  "next": {
+    "title": "Module 3 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module3/intro"
+  }
+}

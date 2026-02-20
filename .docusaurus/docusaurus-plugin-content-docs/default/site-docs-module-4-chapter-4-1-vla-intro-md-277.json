@@ -1,0 +1,28 @@
+{
+  "id": "module4/chapter4-1-vla-intro",
+  "title": "Chapter 4.1 - Introduction to VLA",
+  "description": "Module: 4 - Vision-Language-Action",
+  "source": "@site/docs/module4/chapter4-1-vla-intro.md",
+  "sourceDirName": "module4",
+  "slug": "/module4/chapter4-1-vla-intro",
+  "permalink": "/physical_ai_textbook/docs/module4/chapter4-1-vla-intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module4/chapter4-1-vla-intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Chapter 4.1 - Introduction to VLA"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Module 4 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module4/intro"
+  },
+  "next": {
+    "title": "Chapter 4.2 - LLM Integration with ROS 2",
+    "permalink": "/physical_ai_textbook/docs/module4/chapter4-2-llm-integration"
+  }
+}

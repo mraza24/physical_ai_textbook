@@ -1,0 +1,28 @@
+{
+  "id": "appendices/software-installation",
+  "title": "Appendix B - Software Installation Guide",
+  "description": "Complete step-by-step installation instructions for all software dependencies.",
+  "source": "@site/docs/appendices/software-installation.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/software-installation",
+  "permalink": "/physical_ai_textbook/docs/appendices/software-installation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/software-installation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Appendix B - Software Installation Guide"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Appendix A - Hardware Setup Guide",
+    "permalink": "/physical_ai_textbook/docs/appendices/hardware-setup"
+  },
+  "next": {
+    "title": "Appendix C - Launch File Reference",
+    "permalink": "/physical_ai_textbook/docs/appendices/launch-files"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "appendices/resources",
+  "title": "Appendix G - Additional Resources",
+  "description": "Curated list of learning materials, communities, and tools beyond this textbook.",
+  "source": "@site/docs/appendices/resources.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/resources",
+  "permalink": "/physical_ai_textbook/docs/appendices/resources",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/resources.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "sidebar_position": 7,
+    "title": "Appendix G - Additional Resources"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "cloud-vs-onprem",
+    "permalink": "/physical_ai_textbook/docs/appendices/cloud-vs-onprem"
+  },
+  "next": {
+    "title": "Glossary",
+    "permalink": "/physical_ai_textbook/docs/glossary"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "how-to-use",
+  "title": "How to Use This Book",
+  "description": "Choosing Your Learning Path",
+  "source": "@site/docs/how-to-use.md",
+  "sourceDirName": ".",
+  "slug": "/how-to-use",
+  "permalink": "/physical_ai_textbook/docs/how-to-use",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/how-to-use.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "How to Use This Book"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Preface",
+    "permalink": "/physical_ai_textbook/docs/preface"
+  },
+  "next": {
+    "title": "Course-to-Chapter Mapping",
+    "permalink": "/physical_ai_textbook/docs/course-mapping"
+  }
+}

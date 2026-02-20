@@ -1,0 +1,28 @@
+{
+  "id": "module3/chapter3-1-isaac-overview",
+  "title": "Chapter 3.1 - NVIDIA Isaac Overview",
+  "description": "Module: 3 - The AI-Robot Brain",
+  "source": "@site/docs/module3/chapter3-1-isaac-overview.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/chapter3-1-isaac-overview",
+  "permalink": "/physical_ai_textbook/docs/module3/chapter3-1-isaac-overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module3/chapter3-1-isaac-overview.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Chapter 3.1 - NVIDIA Isaac Overview"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Module 3 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module3/intro"
+  },
+  "next": {
+    "title": "Chapter 3.2 - Isaac Perception Pipeline",
+    "permalink": "/physical_ai_textbook/docs/module3/chapter3-2-isaac-perception"
+  }
+}

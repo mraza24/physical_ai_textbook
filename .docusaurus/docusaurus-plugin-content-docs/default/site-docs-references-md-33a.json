@@ -1,0 +1,24 @@
+{
+  "id": "references",
+  "title": "References",
+  "description": "Academic papers, technical documentation, and resources cited throughout this textbook.",
+  "source": "@site/docs/references.md",
+  "sourceDirName": ".",
+  "slug": "/references",
+  "permalink": "/physical_ai_textbook/docs/references",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/references.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 100,
+  "frontMatter": {
+    "sidebar_position": 100,
+    "title": "References"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Glossary",
+    "permalink": "/physical_ai_textbook/docs/glossary"
+  }
+}

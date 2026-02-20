@@ -1,0 +1,28 @@
+{
+  "id": "module2/intro",
+  "title": "Module 2 Introduction",
+  "description": "Simulation as the Foundation of Robot Development",
+  "source": "@site/docs/module2/intro.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/intro",
+  "permalink": "/physical_ai_textbook/docs/module2/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module2/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Module 2 Introduction"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 1.4 - Building ROS 2 Packages",
+    "permalink": "/physical_ai_textbook/docs/module1/chapter1-4-packages"
+  },
+  "next": {
+    "title": "Chapter 2.1 - Introduction to Digital Twins",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-1-digital-twin-intro"
+  }
+}

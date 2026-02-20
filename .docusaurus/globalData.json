@@ -1,0 +1,191 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/physical_ai_textbook/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/physical_ai_textbook/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "appendices/cloud-vs-onprem",
+              "path": "/physical_ai_textbook/docs/appendices/cloud-vs-onprem",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "appendices/hardware-setup",
+              "path": "/physical_ai_textbook/docs/appendices/hardware-setup",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "appendices/launch-files",
+              "path": "/physical_ai_textbook/docs/appendices/launch-files",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "appendices/resources",
+              "path": "/physical_ai_textbook/docs/appendices/resources",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "appendices/software-installation",
+              "path": "/physical_ai_textbook/docs/appendices/software-installation",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "appendices/troubleshooting",
+              "path": "/physical_ai_textbook/docs/appendices/troubleshooting"
+            },
+            {
+              "id": "course-mapping",
+              "path": "/physical_ai_textbook/docs/course-mapping",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "glossary",
+              "path": "/physical_ai_textbook/docs/glossary",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "how-to-use",
+              "path": "/physical_ai_textbook/docs/how-to-use",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/physical_ai_textbook/docs/intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module1/chapter1-1-ros2-fundamentals",
+              "path": "/physical_ai_textbook/docs/module1/chapter1-1-ros2-fundamentals",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module1/chapter1-2-nodes-communication",
+              "path": "/physical_ai_textbook/docs/module1/chapter1-2-nodes-communication",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module1/chapter1-3-launch-files",
+              "path": "/physical_ai_textbook/docs/module1/chapter1-3-launch-files",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module1/chapter1-4-packages",
+              "path": "/physical_ai_textbook/docs/module1/chapter1-4-packages",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module1/intro",
+              "path": "/physical_ai_textbook/docs/module1/intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module2/chapter2-1-digital-twin-intro",
+              "path": "/physical_ai_textbook/docs/module2/chapter2-1-digital-twin-intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module2/chapter2-2-gazebo-fundamentals",
+              "path": "/physical_ai_textbook/docs/module2/chapter2-2-gazebo-fundamentals",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module2/chapter2-3-unity-robotics",
+              "path": "/physical_ai_textbook/docs/module2/chapter2-3-unity-robotics",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module2/chapter2-4-sensors-vslam",
+              "path": "/physical_ai_textbook/docs/module2/chapter2-4-sensors-vslam",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module2/intro",
+              "path": "/physical_ai_textbook/docs/module2/intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module3/chapter3-1-isaac-overview",
+              "path": "/physical_ai_textbook/docs/module3/chapter3-1-isaac-overview",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module3/chapter3-2-isaac-perception",
+              "path": "/physical_ai_textbook/docs/module3/chapter3-2-isaac-perception",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module3/chapter3-3-isaac-manipulation-nav",
+              "path": "/physical_ai_textbook/docs/module3/chapter3-3-isaac-manipulation-nav",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module3/chapter3-4-isaac-gym-rl",
+              "path": "/physical_ai_textbook/docs/module3/chapter3-4-isaac-gym-rl",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module3/intro",
+              "path": "/physical_ai_textbook/docs/module3/intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module4/chapter4-1-vla-intro",
+              "path": "/physical_ai_textbook/docs/module4/chapter4-1-vla-intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module4/chapter4-2-llm-integration",
+              "path": "/physical_ai_textbook/docs/module4/chapter4-2-llm-integration",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module4/chapter4-3-whisper-voice",
+              "path": "/physical_ai_textbook/docs/module4/chapter4-3-whisper-voice",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module4/chapter4-4-vla-system",
+              "path": "/physical_ai_textbook/docs/module4/chapter4-4-vla-system",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "module4/intro",
+              "path": "/physical_ai_textbook/docs/module4/intro",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "preface",
+              "path": "/physical_ai_textbook/docs/preface",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "references",
+              "path": "/physical_ai_textbook/docs/references",
+              "sidebar": "textbookSidebar"
+            },
+            {
+              "id": "week-to-chapter-mapping",
+              "path": "/physical_ai_textbook/docs/week-to-chapter-mapping"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "textbookSidebar": {
+              "link": {
+                "path": "/physical_ai_textbook/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

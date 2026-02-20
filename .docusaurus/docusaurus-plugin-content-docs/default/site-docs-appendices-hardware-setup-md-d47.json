@@ -1,0 +1,28 @@
+{
+  "id": "appendices/hardware-setup",
+  "title": "Appendix A - Hardware Setup Guide",
+  "description": "Complete hardware specifications and setup instructions for Physical AI development.",
+  "source": "@site/docs/appendices/hardware-setup.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/hardware-setup",
+  "permalink": "/physical_ai_textbook/docs/appendices/hardware-setup",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/hardware-setup.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1,
+    "title": "Appendix A - Hardware Setup Guide"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 4.4 - End-to-End VLA System",
+    "permalink": "/physical_ai_textbook/docs/module4/chapter4-4-vla-system"
+  },
+  "next": {
+    "title": "Appendix B - Software Installation Guide",
+    "permalink": "/physical_ai_textbook/docs/appendices/software-installation"
+  }
+}

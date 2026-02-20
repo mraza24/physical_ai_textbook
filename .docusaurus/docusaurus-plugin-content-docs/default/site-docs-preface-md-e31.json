@@ -1,0 +1,28 @@
+{
+  "id": "preface",
+  "title": "Preface",
+  "description": "Why Physical AI Matters Now",
+  "source": "@site/docs/preface.md",
+  "sourceDirName": ".",
+  "slug": "/preface",
+  "permalink": "/physical_ai_textbook/docs/preface",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/preface.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Preface"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Physical AI & Humanoid Robotics",
+    "permalink": "/physical_ai_textbook/docs/intro"
+  },
+  "next": {
+    "title": "How to Use This Book",
+    "permalink": "/physical_ai_textbook/docs/how-to-use"
+  }
+}

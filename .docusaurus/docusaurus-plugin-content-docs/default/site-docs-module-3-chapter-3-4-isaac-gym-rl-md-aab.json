@@ -1,0 +1,28 @@
+{
+  "id": "module3/chapter3-4-isaac-gym-rl",
+  "title": "Chapter 3.4 - Isaac Gym and RL (Optional)",
+  "description": "Module: 3 - The AI-Robot Brain",
+  "source": "@site/docs/module3/chapter3-4-isaac-gym-rl.md",
+  "sourceDirName": "module3",
+  "slug": "/module3/chapter3-4-isaac-gym-rl",
+  "permalink": "/physical_ai_textbook/docs/module3/chapter3-4-isaac-gym-rl",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module3/chapter3-4-isaac-gym-rl.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Chapter 3.4 - Isaac Gym and RL (Optional)"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 3.3 - Isaac Manipulation and Navigation",
+    "permalink": "/physical_ai_textbook/docs/module3/chapter3-3-isaac-manipulation-nav"
+  },
+  "next": {
+    "title": "Module 4 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module4/intro"
+  }
+}

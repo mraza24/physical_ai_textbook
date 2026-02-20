@@ -1,0 +1,15 @@
+{
+  "id": "week-to-chapter-mapping",
+  "title": "Week-to-Chapter Mapping: 13-Week Course",
+  "description": "Purpose: Map the textbook chapters to a 13-week semester course.",
+  "source": "@site/docs/week-to-chapter-mapping.md",
+  "sourceDirName": ".",
+  "slug": "/week-to-chapter-mapping",
+  "permalink": "/physical_ai_textbook/docs/week-to-chapter-mapping",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/week-to-chapter-mapping.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

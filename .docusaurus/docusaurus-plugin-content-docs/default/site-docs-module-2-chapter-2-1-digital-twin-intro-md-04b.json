@@ -1,0 +1,28 @@
+{
+  "id": "module2/chapter2-1-digital-twin-intro",
+  "title": "Chapter 2.1 - Introduction to Digital Twins",
+  "description": "Module: 2 - The Digital Twin",
+  "source": "@site/docs/module2/chapter2-1-digital-twin-intro.md",
+  "sourceDirName": "module2",
+  "slug": "/module2/chapter2-1-digital-twin-intro",
+  "permalink": "/physical_ai_textbook/docs/module2/chapter2-1-digital-twin-intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module2/chapter2-1-digital-twin-intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2,
+    "title": "Chapter 2.1 - Introduction to Digital Twins"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Module 2 Introduction",
+    "permalink": "/physical_ai_textbook/docs/module2/intro"
+  },
+  "next": {
+    "title": "Chapter 2.2 - Gazebo Simulation Fundamentals",
+    "permalink": "/physical_ai_textbook/docs/module2/chapter2-2-gazebo-fundamentals"
+  }
+}

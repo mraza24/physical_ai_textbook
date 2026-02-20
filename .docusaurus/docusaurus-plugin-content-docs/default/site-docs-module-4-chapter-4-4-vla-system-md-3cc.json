@@ -1,0 +1,28 @@
+{
+  "id": "module4/chapter4-4-vla-system",
+  "title": "Chapter 4.4 - End-to-End VLA System",
+  "description": "Module: 4 - Vision-Language-Action",
+  "source": "@site/docs/module4/chapter4-4-vla-system.md",
+  "sourceDirName": "module4",
+  "slug": "/module4/chapter4-4-vla-system",
+  "permalink": "/physical_ai_textbook/docs/module4/chapter4-4-vla-system",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/module4/chapter4-4-vla-system.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5,
+    "title": "Chapter 4.4 - End-to-End VLA System"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Chapter 4.3 - Whisper Voice Commands",
+    "permalink": "/physical_ai_textbook/docs/module4/chapter4-3-whisper-voice"
+  },
+  "next": {
+    "title": "Appendix A - Hardware Setup Guide",
+    "permalink": "/physical_ai_textbook/docs/appendices/hardware-setup"
+  }
+}

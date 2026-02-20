@@ -1,0 +1,28 @@
+{
+  "id": "appendices/launch-files",
+  "title": "Appendix C - Launch File Reference",
+  "description": "Comprehensive reference for Python launch files in ROS 2.",
+  "source": "@site/docs/appendices/launch-files.md",
+  "sourceDirName": "appendices",
+  "slug": "/appendices/launch-files",
+  "permalink": "/physical_ai_textbook/docs/appendices/launch-files",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/mraza24/physical_ai_textbook/edit/main/textbook/docs/docs/appendices/launch-files.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3,
+    "title": "Appendix C - Launch File Reference"
+  },
+  "sidebar": "textbookSidebar",
+  "previous": {
+    "title": "Appendix B - Software Installation Guide",
+    "permalink": "/physical_ai_textbook/docs/appendices/software-installation"
+  },
+  "next": {
+    "title": "cloud-vs-onprem",
+    "permalink": "/physical_ai_textbook/docs/appendices/cloud-vs-onprem"
+  }
+}
