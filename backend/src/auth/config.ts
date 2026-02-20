@@ -21,23 +21,22 @@ if (!process.env.JWT_SECRET) {
 }
 
 export const auth = betterAuth({
+  // ✅ Trusted Origins Configuration (Fixed: Only one property)
+  trustedOrigins: [
+    'https://physical-ai-textbook-jet.vercel.app', // Production frontend (Vercel)
+    'http://localhost:3000', // Local development
+    'http://localhost:3001', // Alternative local port
+    ...(process.env.TRUSTED_ORIGINS?.split(',').map(origin => origin.trim()) || []),
+  ],
+
+  // ✅ Backend Base URL (CRITICAL for Render)
+  baseURL: 'https://physical-ai-auth-backend.onrender.com',
+
   // Database adapter configuration
   database: drizzleAdapter(db, {
     provider: 'pg', // PostgreSQL (Neon)
     schema, // Pass schema object so Better-Auth can find all tables
   }),
-
-  // ✅ Trusted Origins Configuration (CRITICAL for Production)
-  // Better-Auth validates request origins separately from Express CORS
-  // This fixes "Invalid Origin" errors on production Vercel deployments
-  // Refs: https://github.com/better-auth/better-auth/issues/2203
-  trustedOrigins: [
-    'https://physical-ai-textbook-jet.vercel.app', // Production frontend (Vercel)
-    'http://localhost:3000', // Local development
-    'http://localhost:3001', // Alternative local port
-    // Support additional origins from environment variable (comma-separated)
-    ...(process.env.TRUSTED_ORIGINS?.split(',').map(origin => origin.trim()) || []),
-  ],
 
   // JWT secret for signing tokens
   secret: process.env.JWT_SECRET!,
@@ -62,7 +61,6 @@ export const auth = betterAuth({
   advanced: {
     useSecureCookies: process.env.NODE_ENV === 'production',
     cookiePrefix: 'auth',
-    // ✅ This helps with cross-site authentication (Render to Vercel)
     crossSubDomainCookies: {
       enabled: false, 
     },
